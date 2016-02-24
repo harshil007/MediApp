@@ -19,19 +19,43 @@ import java.util.List;
 
 public class ScrollingActivity extends AppCompatActivity {
 
+    String title[];
+    int category_img[];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scrolling);
-        /*Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);*/
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         RecyclerView recList = (RecyclerView) findViewById(R.id.cardList);
         recList.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recList.setLayoutManager(llm);
+        recList.setHasFixedSize(true);
 
-        ContactAdapter ca = new ContactAdapter(createList(30));
+
+        title = new String[7];
+        title[0]="Medicines";
+        title[1]="Personal & Baby Care Products";
+        title[2]="Women Care";
+        title[3]="Vitamins & Supplements";
+        title[4]="Health Care Devices";
+        title[5]="Beauty Products";
+        title[6]="Ayurvedic Medicines & Products";
+
+        category_img = new int[7];
+        category_img[0]=R.drawable.category_0;
+        category_img[1]=R.drawable.category_1;
+        category_img[2]=R.drawable.category_2;
+        category_img[3]=R.drawable.category_3;
+        category_img[4]=R.drawable.category_4;
+        category_img[5]=R.drawable.category_5;
+        category_img[6]=R.drawable.category_6;
+
+
+
+        ContactAdapter ca = new ContactAdapter(this,createList(7));
         recList.setAdapter(ca);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -68,11 +92,10 @@ public class ScrollingActivity extends AppCompatActivity {
     private List<ContactInfo> createList(int size) {
 
         List<ContactInfo> result = new ArrayList<ContactInfo>();
-        for (int i=1; i <= size; i++) {
+        for (int i=0; i < size; i++) {
             ContactInfo ci = new ContactInfo();
-            ci.name = ContactInfo.NAME_PREFIX + i;
-            ci.surname = ContactInfo.SURNAME_PREFIX + i;
-            ci.email = ContactInfo.EMAIL_PREFIX + i + "@test.com";
+            ci.name = title[i];
+            ci.imgsrc = category_img[i];
 
             result.add(ci);
 

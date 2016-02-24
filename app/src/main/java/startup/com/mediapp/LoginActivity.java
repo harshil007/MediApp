@@ -19,6 +19,7 @@ import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -102,7 +103,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
 
+
         setContentView(R.layout.activity_login);
+
         setup();
 
 
@@ -124,8 +127,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         signIn_sell.setOnClickListener(this);
 
 
-        mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
+
+
 
         _signupLink.setOnClickListener(this);
     }

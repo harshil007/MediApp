@@ -192,9 +192,7 @@ public class signup extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(),
                                         "Account created successfully!",
                                         Toast.LENGTH_LONG).show();
-                                Intent i = new Intent(signup.this,Post_Signup.class);
-
-                                i.putExtra("type",0);
+                                Intent i = new Intent(signup.this,PostSignupCust.class);
                                 i.putExtra("cid",cid);
                                 startActivity(i);
                                 finish();
@@ -228,6 +226,7 @@ public class signup extends AppCompatActivity {
                 VolleyLog.d(TAG, "ErrorV: " + error.getMessage());
                 Toast.makeText(getApplicationContext(),
                         error.getMessage(), Toast.LENGTH_SHORT).show();
+                error.printStackTrace();
                 pDialog.dismiss();
 
             }
@@ -256,15 +255,35 @@ public class signup extends AppCompatActivity {
             return;
         }
 
+
         if(rb_cust.isChecked()){
             type=0;
+            pDialog = new ProgressDialog(signup.this);
+            pDialog.setMessage("Creating account...");
+            pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            pDialog.setCancelable(false);
+            pDialog.show();
+
+
+
+            // TODO: Implement your own signup logic here.
+
+            new android.os.Handler().postDelayed(
+                    new Runnable() {
+                        public void run() {
+                            // On complete call either onSignupSuccess or onSignupFailed
+                            // depending on success
+                            onSignupSuccess();
+                            // onSignupFailed();
+                        }
+                    }, 3000);
         }
         else if(rb_sell.isChecked()){
             type=1;
             int s = (int)(Math.random()*1000);
             String sid = "s_"+s;
-            Intent i = new Intent(signup.this,Post_Signup.class);
-            i.putExtra("type",1);
+            Intent i = new Intent(signup.this,PostSignupSell.class);
+
             i.putExtra("name",name);
             i.putExtra("email",email);
             i.putExtra("password",password);
@@ -275,26 +294,7 @@ public class signup extends AppCompatActivity {
 
         _signupButton.setEnabled(false);
 
-        pDialog = new ProgressDialog(signup.this);
-        pDialog.setMessage("Creating account...");
-        pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        pDialog.setCancelable(false);
-        pDialog.show();
 
-
-
-        // TODO: Implement your own signup logic here.
-
-        new android.os.Handler().postDelayed(
-                new Runnable() {
-                    public void run() {
-                        // On complete call either onSignupSuccess or onSignupFailed
-                        // depending on success
-                        onSignupSuccess();
-                        // onSignupFailed();
-                        pDialog.dismiss();
-                    }
-                }, 3000);
     }
 
 
