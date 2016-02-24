@@ -124,8 +124,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         signIn_sell.setOnClickListener(this);
 
 
-        mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
+
+
 
         _signupLink.setOnClickListener(this);
     }
