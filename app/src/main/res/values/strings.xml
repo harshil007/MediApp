@@ -1,0 +1,86 @@
+<resources>
+    <string name="app_name">MediApp</string>
+
+
+    <string name="title_text">BUSINESS EXPANSION</string>
+    <string name="username">Name</string>
+    <string name="user">Username:</string>
+    <string name="password">Password:</string>
+    <string name="Customer">Customer</string>
+    <string name="logo">logo</string>
+    <string name="signin">Customer</string>
+    <string name="title_activity_buttonclick">buttonclick</string>
+    <string name="sign">signIn</string>
+    <string name="resource">Large Text</string>
+    <string name="prince">Prince</string>
+    <string name="seller">Seller</string>
+    <string name="title_activity_sidepanelayout">sellerclick</string>
+    <string name="title_activity_splash_screen">splashscreen</string>
+    <string name="title_activity_gallery_image">gallery_image</string>
+    <string name="drawer_open">1</string>
+    <string name="drawer_close">2</string>
+    <string name="action_settings">action</string>
+    <string name="Logout">Logout</string>
+    <string name="AboutUS">AboutUs</string>
+
+    <string-array name="navigation_drawer_items_array">
+        <item>Home</item>
+        <item>Profile</item>
+        <item>Location</item>
+        <item>Setting</item>
+        <item>About us</item>
+    </string-array>
+
+    <string-array name="nav_drawer_items">
+        <item>Home</item>
+        <item>Find People</item>
+        <item>Photos</item>
+        <item>Communities</item>
+        <item>Pages</item>
+        <item>What\'s Hot</item>
+    </string-array>
+
+    <array name="nav_drawer_icons">
+        <item>ic_action_action_home</item>
+        <item>ic_social_school</item>
+        <item>ic_photos</item>
+        <item>ic_communities</item>
+        <item>ic_pages</item>
+        <item>ic_whats_hot</item>
+    </array>
+
+    <!-- Content Description -->
+    <string name="desc_list_item_icon">Item Icon</string>
+    <string name="title_activity_gridview">gridview</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_main2">MediApp</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_activity_medi_shop">MediShop</string>
+    <string name="title_activity_buy_meds">BuyMeds</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_signup">signup</string>
+    <string name="title_activity_download">download</string>
+    <string name="title_activity_medicines">Medicines</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+
+
+</resources>
