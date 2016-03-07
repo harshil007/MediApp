@@ -58,14 +58,6 @@ public class ScrollingActivity extends AppCompatActivity {
         ContactAdapter ca = new ContactAdapter(this,createList(7));
         recList.setAdapter(ca);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
     }
 
     @Override

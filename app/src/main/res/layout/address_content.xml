@@ -10,13 +10,15 @@
         android:id="@+id/et_no"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColorHint="@android:color/holo_blue_light"
+        android:textColorHint="@color/reg_hint"
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp">
+        android:layout_marginBottom="5dp"
+        >
         <EditText android:id="@+id/input_home_no"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
+            android:textColor="#fff"
             android:hint="Flat/bunglow number" />
     </android.support.design.widget.TextInputLayout>
 
@@ -24,23 +26,25 @@
         android:id="@+id/et_nm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColorHint="@android:color/holo_blue_light"
+        android:textColorHint="@color/reg_hint"
         android:layout_marginBottom="5dp">
         <EditText android:id="@+id/input_s_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
+            android:textColor="#fff"
             android:hint="Society name" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColorHint="@android:color/holo_blue_light"
+        android:textColorHint="@color/reg_hint"
         android:layout_marginBottom="5dp">
         <EditText android:id="@+id/input_locality"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="#fff"
             android:inputType="text"
             android:hint="Locality" />
     </android.support.design.widget.TextInputLayout>
@@ -48,11 +52,12 @@
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColorHint="@android:color/holo_blue_light"
+        android:textColorHint="@color/reg_hint"
         android:layout_marginBottom="5dp">
         <EditText android:id="@+id/input_city"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="#fff"
             android:inputType="text"
             android:hint="City" />
     </android.support.design.widget.TextInputLayout>
@@ -60,25 +65,27 @@
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColorHint="@android:color/holo_blue_light"
+        android:textColorHint="@color/reg_hint"
         android:layout_marginBottom="5dp">
         <EditText android:id="@+id/input_state"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
+            android:textColor="#fff"
             android:hint="State" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColorHint="@android:color/holo_blue_light"
+        android:textColorHint="@color/reg_hint"
         android:layout_marginBottom="5dp">
         <EditText android:id="@+id/input_pincode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number"
             android:maxLength="6"
+            android:textColor="#fff"
             android:hint="Pincode" />
     </android.support.design.widget.TextInputLayout>
 

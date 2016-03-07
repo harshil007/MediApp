@@ -254,38 +254,41 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 startActivity(i);
                 finish();
             }
+            else{
+                if(f){
+                    myIP= "http://mediapp.netai.net/login_cust.php";
+                }
+                else {
+                    myIP = "http://mediapp.netai.net/login_sell.php";
+                }
 
-            if(f){
-                myIP= "http://mediapp.netai.net/login_cust.php";
+
+
+                // Show a progress spinner, and kick off a background task to
+                // perform the user login attempt.
+                //showProgress(true);
+                //intent1 = new Intent(LoginActivity.this,BuyMeds.class);
+                // startActivity(intent1);
+
+                pDialog = new ProgressDialog(LoginActivity.this);
+                pDialog.setMessage("Attempting login...");
+                pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                pDialog.setCancelable(false);
+                pDialog.setTitle("Signing in");
+                pDialog.show();
+
+
+
+                emAddr=mEmailView.getText().toString();
+                pass=mPasswordView.getText().toString();
+                SignIn();
+                //startActivity(intent1);
+
+                mAuthTask = new UserLoginTask(email, password);
+                mAuthTask.execute((Void) null);
             }
-            else {
-                myIP = "http://mediapp.netai.net/login_sell.php";
-            }
 
 
-
-            // Show a progress spinner, and kick off a background task to
-            // perform the user login attempt.
-            //showProgress(true);
-            //intent1 = new Intent(LoginActivity.this,BuyMeds.class);
-           // startActivity(intent1);
-
-            pDialog = new ProgressDialog(LoginActivity.this);
-            pDialog.setMessage("Attempting login...");
-            pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            pDialog.setCancelable(false);
-            pDialog.setTitle("Signing in");
-            pDialog.show();
-
-
-
-            emAddr=mEmailView.getText().toString();
-            pass=mPasswordView.getText().toString();
-            SignIn();
-            //startActivity(intent1);
-
-            mAuthTask = new UserLoginTask(email, password);
-            mAuthTask.execute((Void) null);
         }
     }
 

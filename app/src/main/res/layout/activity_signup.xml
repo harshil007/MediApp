@@ -2,7 +2,8 @@
 <ScrollView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/login_bck">
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -18,6 +19,7 @@
             android:text="Sign Up"
             android:gravity="center"
             android:textSize="30sp"
+            android:textColor="#fff"
             android:layout_marginBottom="10dp"
             />
 
@@ -36,6 +38,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/Customer"
                     android:textSize="20sp"
+                     android:textColor="#fff"
                     android:layout_marginRight="20dp"
                     android:layout_marginEnd="20dp"
                     android:checked="true"
@@ -48,6 +51,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/seller"
+                    android:textColor="#fff"
                     android:textSize="20sp"
                     android:onClick="onRadioButtonClicked"
                     />
@@ -69,26 +73,31 @@
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColorHint="@android:color/holo_blue_light"
+            android:textColorHint="@color/reg_hint"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
+            android:layout_marginBottom="8dp"
+
+            >
             <EditText android:id="@+id/input_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textCapWords"
-                android:hint="Name" />
+                android:hint="Name"
+                android:textColor="#fff"
+                />
         </android.support.design.widget.TextInputLayout>
 
         <!-- Email Label -->
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColorHint="@android:color/holo_blue_light"
+            android:textColorHint="@color/reg_hint"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp">
             <EditText android:id="@+id/input_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="#fff"
                 android:inputType="textEmailAddress"
                 android:hint="Email" />
         </android.support.design.widget.TextInputLayout>
@@ -97,33 +106,35 @@
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColorHint="@android:color/holo_blue_light"
+            android:textColorHint="@color/reg_hint"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp">
             <EditText android:id="@+id/input_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
+                android:textColor="#fff"
                 android:hint="Password"/>
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColorHint="@android:color/holo_blue_light"
+            android:textColorHint="@color/reg_hint"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp">
             <EditText android:id="@+id/confirm_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
+                android:textColor="#fff"
                 android:hint="Confirm Password"/>
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColorHint="@android:color/holo_blue_light"
+            android:textColorHint="@color/reg_hint"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp">
             <EditText android:id="@+id/input_mobile"
@@ -131,7 +142,8 @@
                 android:layout_height="wrap_content"
                 android:inputType="numberDecimal"
                 android:maxLength="10"
-                android:hint="Mobile Number" />
+                android:hint="Mobile Number"
+                android:textColor="#fff"/>
         </android.support.design.widget.TextInputLayout>
 
          </LinearLayout>
@@ -153,7 +165,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
             android:text="Already a member? Login"
-            android:textColor="@android:color/holo_blue_light"
+            android:textColor="#fff"
             android:gravity="center"
             android:textSize="16dip"/>
 

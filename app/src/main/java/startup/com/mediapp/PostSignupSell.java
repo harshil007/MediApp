@@ -14,6 +14,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -39,6 +40,7 @@ import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPReply;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -56,6 +58,8 @@ public class PostSignupSell extends AppCompatActivity implements View.OnClickLis
     ProgressDialog pDialog;
     ImageView imgv;
     InputStream is=null;
+
+    TextInputLayout et1,et2;
 
     static int REQUEST_CAMERA=10;
     static int SELECT_IMAGE=110;
@@ -86,7 +90,11 @@ public class PostSignupSell extends AppCompatActivity implements View.OnClickLis
         browse = (Button) findViewById(R.id.b_browse_sell);
         submit = (Button) findViewById(R.id.b_submit_sell);
         et_home=(EditText)findViewById(R.id.input_home_no);
+        et1 = (TextInputLayout) findViewById(R.id.et_no);
+        et1.setHint("Shop No.");
         et_soc=(EditText)findViewById(R.id.input_s_name);
+        et2 = (TextInputLayout) findViewById(R.id.et_nm);
+        et2.setHint("Shop Name");
         et_loc=(EditText)findViewById(R.id.input_locality);
         et_city=(EditText)findViewById(R.id.input_city);
         et_state=(EditText)findViewById(R.id.input_state);
