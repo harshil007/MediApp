@@ -61,6 +61,11 @@
             android:name=".ScrollingActivity"
             android:label="Category">
         </activity>
+
+        <activity
+            android:name=".ItemListActivity"
+            android:label="Add items">
+        </activity>
     </application>
 
 </manifest>

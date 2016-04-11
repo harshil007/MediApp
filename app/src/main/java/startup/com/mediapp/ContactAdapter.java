@@ -19,7 +19,8 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
 
     private List<ContactInfo> contactList;
     Context context;
-
+    ClickListener clickListener;
+    onLongListener onLongClick;
 
     public ContactAdapter(Context context, List<ContactInfo> contactList) {
         this.contactList = contactList;
@@ -54,7 +55,13 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
         return new ContactViewHolder(itemView);
     }
 
-    public static class ContactViewHolder extends RecyclerView.ViewHolder {
+    public void setClickListener(ClickListener clickListener){
+        this.clickListener=clickListener;
+    }
+
+    public void setonLongListener(onLongListener onLongClick){this.onLongClick=onLongClick;}
+
+    public class ContactViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,View.OnLongClickListener{
 
         protected TextView title;
         protected ImageView img_category;
@@ -62,9 +69,37 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
 
         public ContactViewHolder(View v) {
             super(v);
+            v.setOnClickListener(this);
+            v.setOnLongClickListener(this);
             title =  (TextView) v.findViewById(R.id.title);
             img_category = (ImageView) v.findViewById(R.id.img);
 
         }
+
+        @Override
+        public void onClick(View v) {
+            if(clickListener!=null){
+                clickListener.itemClicked(v, getPosition());
+            }
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            if(onLongClick!=null){
+                onLongClick.itemLongClicked(v,getPosition());
+            }
+
+            return false;
+        }
     }
+
+    public interface ClickListener{
+
+        void itemClicked(View view, int position);
+    }
+
+    public interface onLongListener{
+        void itemLongClicked(View view, int position);
+    }
+
 }
