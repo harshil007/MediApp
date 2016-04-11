@@ -3,6 +3,7 @@ package startup.com.mediapp;
 /**
  * Created by Harshil on 17/02/2016.
  */
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,11 +14,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ScrollingActivity extends AppCompatActivity {
+public class ScrollingActivity extends AppCompatActivity implements ContactAdapter.ClickListener{
 
     String title[];
     int category_img[];
@@ -57,6 +59,7 @@ public class ScrollingActivity extends AppCompatActivity {
 
         ContactAdapter ca = new ContactAdapter(this,createList(7));
         recList.setAdapter(ca);
+        ca.setClickListener(this);
 
     }
 
@@ -94,5 +97,15 @@ public class ScrollingActivity extends AppCompatActivity {
         }
 
         return result;
+    }
+
+    @Override
+    public void itemClicked(View view, int position) {
+        TextView tv_category = (TextView) view.findViewById(R.id.title);
+        String category = tv_category.getText().toString();
+        Intent i = new Intent(ScrollingActivity.this,ItemListActivity.class);
+        i.putExtra("category",category);
+        i.putExtra("sub_category","nope");
+        startActivity(i);
     }
 }

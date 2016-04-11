@@ -371,7 +371,7 @@ public class PostSignupCust extends AppCompatActivity implements View.OnClickLis
                 }
                 ftp.setFileType(FTPClient.BINARY_FILE_TYPE);
                 ftp.enterLocalPassiveMode();
-                ftp.changeWorkingDirectory("/public_html/Images");
+                ftp.changeWorkingDirectory("/public_html/Images/profile_pics");
                 ftp.storeFile(name,inputstream);
                 ftp.logout();
                 ftp.disconnect();

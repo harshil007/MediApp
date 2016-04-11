@@ -61,6 +61,15 @@
             android:name=".ScrollingActivity"
             android:label="Category">
         </activity>
+
+        <activity
+            android:name=".ItemListActivity"
+            android:label="Add items">
+        </activity>
+        <activity
+            android:name=".CartActivity"
+            android:label="Shopping cart">
+        </activity>
     </application>
 
 </manifest>
