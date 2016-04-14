@@ -1,9 +1,6 @@
 package startup.com.mediapp;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.app.ActionBar;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.app.ProgressDialog;
 import android.content.CursorLoader;
@@ -19,19 +16,15 @@ import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
-import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,11 +32,9 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -250,7 +241,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             if(email.equals("admin@mediapp.com") && password.equals("admin")){
                 Toast.makeText(getApplicationContext(),"Admin login",Toast.LENGTH_LONG);
-                Intent i = new Intent(LoginActivity.this,ScrollingActivity.class);
+                Intent i = new Intent(LoginActivity.this,MainCategory.class);
                 startActivity(i);
                 finish();
             }
@@ -325,7 +316,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             if(success==1) {
                                 pDialog.dismiss();
                                 Toast.makeText(getApplicationContext(),response.getString("message"),Toast.LENGTH_LONG).show();
-                                Intent i = new Intent(LoginActivity.this,ScrollingActivity.class);
+                                Intent i = new Intent(LoginActivity.this,MainCategory.class);
                                 startActivity(i);
                                 finish();
                             }

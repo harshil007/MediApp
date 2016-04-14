@@ -103,6 +103,7 @@ public class ItemListActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 orderCartList = new ArrayList<ItemModel>();
+                orderCartList=null;
                 orderCartList = adapter.setOrders();
                 Intent intent = new Intent(ItemListActivity.this,CartActivity.class);
                 Bundle bundle = new Bundle();
@@ -117,6 +118,8 @@ public class ItemListActivity extends AppCompatActivity{
 
 
     private void fetch_items(){
+
+        Toast.makeText(ItemListActivity.this,"Success",Toast.LENGTH_SHORT).show();
         pDialog = new ProgressDialog(this);
         pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         pDialog.setCancelable(false);

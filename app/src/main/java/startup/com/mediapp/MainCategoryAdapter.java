@@ -15,14 +15,14 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
-public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactViewHolder> {
+public class MainCategoryAdapter extends RecyclerView.Adapter<MainCategoryAdapter.ContactViewHolder> {
 
-    private List<ContactInfo> contactList;
+    private List<MainCategoryInfo> contactList;
     Context context;
     ClickListener clickListener;
     onLongListener onLongClick;
 
-    public ContactAdapter(Context context, List<ContactInfo> contactList) {
+    public MainCategoryAdapter(Context context, List<MainCategoryInfo> contactList) {
         this.contactList = contactList;
         this.context = context;
     }
@@ -35,7 +35,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
 
     @Override
     public void onBindViewHolder(ContactViewHolder contactViewHolder, int i) {
-        ContactInfo ci = contactList.get(i);
+        MainCategoryInfo ci = contactList.get(i);
         contactViewHolder.title.setText(ci.name);
         //contactViewHolder.img_category.setImageResource(ci.imgsrc);
         Glide.with(context)
