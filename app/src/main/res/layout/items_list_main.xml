@@ -1,48 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:id="@+id/ll_item_main"
+    android:background="#fff"
     >
 
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/primary_dark"
+        android:layout_height="50dp"
+
         android:id="@+id/item_list_toolbar"
+        android:background="@color/primary_dark"
         >
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Add Items to Cart"
-                android:textColor="#fff"
-                android:textSize="20sp"
-                android:id="@+id/tv_title"
-                />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/rounded_et"
+            android:layout_margin="5dp"
+            >
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/iv_search"
-                android:layout_toLeftOf="@+id/iv_cart"
-                android:src="@drawable/ic_search_white_24dp"
-                android:layout_marginRight="5dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_arrow_back_black_24dp"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/iv_back"
+                android:tint="#424242"
                 />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#000" />
+
+
+            <LinearLayout
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:layout_width="0px"
+                android:layout_height="0px"/>
+
 
             <ImageView
-                android:id="@+id/iv_cart"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_shopping_cart_white_24dp"
-                android:layout_alignParentRight="true"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_search_black_24dp"
+                android:tint="#616161"
+                android:layout_gravity="center_vertical"
+
                 />
 
-        </RelativeLayout>
+
+            <EditText
+                android:id="@+id/et_search"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:hint="Search for products"
+                android:singleLine="true"
+                android:textColor="#000"
+                android:textColorLink="#000"
+                android:nextFocusUp="@id/et_search"
+                android:nextFocusLeft="@id/et_search"
+                />
+
+
+
+
+
+
+        </LinearLayout>
 
 
 
@@ -54,9 +91,99 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/rc_items_list"
+
         >
 
 
     </android.support.v7.widget.RecyclerView>
 
+
+
 </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:elevation="10dp"
+        android:background="@color/primary_dark"
+        >
+
+        <LinearLayout
+            android:id="@+id/ll_t1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+
+            >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/iv_cart"
+                android:src="@drawable/ic_shopping_cart_white_24dp"
+
+                />
+
+           <LinearLayout
+               android:layout_width="25dp"
+               android:layout_height="25dp"
+               android:background="@drawable/circle_cart"
+               android:gravity="center"
+               >
+
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:id="@+id/tv_cart_quantity"
+                   android:text="0"
+                   android:textColor="#fff"
+                   android:textSize="17sp"
+                   android:layout_gravity="center"
+                   />
+
+
+           </LinearLayout>
+
+            <View
+
+                android:layout_width="1dp"
+                android:layout_height="29dp"
+                android:layout_marginLeft="10dp"
+                android:background="#fff"
+                android:gravity="center_vertical"
+                android:id="@+id/v_l_1"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_cart_price"
+                android:text="₹ 75"
+                android:textSize="20sp"
+                android:textColor="#fff"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:layout_marginLeft="10dp"
+                />
+
+
+
+        </LinearLayout>
+
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/b_view_cart"
+        android:layout_alignParentRight="true"
+        android:background="@android:color/transparent"
+        android:text="View Cart"
+        android:textSize="17sp"
+        android:textColor="#fff"
+        android:layout_marginRight="5dp"
+        />
+
+    </RelativeLayout>
+
+</RelativeLayout>

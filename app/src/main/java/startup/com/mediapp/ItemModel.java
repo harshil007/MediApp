@@ -9,6 +9,7 @@ import android.os.Parcelable;
 public class ItemModel implements Parcelable {
     private String id;
     private String name;
+    private String brand_name;
     private String price;
     private String description;
     private String img_url;
@@ -22,11 +23,20 @@ public class ItemModel implements Parcelable {
     public ItemModel(Parcel in){
         id = in.readString();
         name = in.readString();
+        brand_name = in.readString();
         price = in.readString();
         description = in.readString();
         img_url = in.readString();
         quantity = in.readInt();
         is_added = in.readInt();
+    }
+
+    public String getBrand_name() {
+        return brand_name;
+    }
+
+    public void setBrand_name(String brand_name) {
+        this.brand_name = brand_name;
     }
 
     public int is_added() {
@@ -96,6 +106,7 @@ public class ItemModel implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(id);
         dest.writeString(name);
+        dest.writeString(brand_name);
         dest.writeString(price);
         dest.writeString(description);
         dest.writeString(img_url);
