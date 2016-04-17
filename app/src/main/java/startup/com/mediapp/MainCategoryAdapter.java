@@ -3,6 +3,7 @@ package startup.com.mediapp;
 /**
  * Created by Harshil on 17/02/2016.
  */
+
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -34,16 +35,51 @@ public class MainCategoryAdapter extends RecyclerView.Adapter<MainCategoryAdapte
     }
 
     @Override
-    public void onBindViewHolder(ContactViewHolder contactViewHolder, int i) {
+    public void onBindViewHolder(final ContactViewHolder contactViewHolder, int i) {
         MainCategoryInfo ci = contactList.get(i);
         contactViewHolder.title.setText(ci.name);
+        contactViewHolder.desc.setText(ci.description);
+        contactViewHolder.subcategory = ci.subcategory;
         //contactViewHolder.img_category.setImageResource(ci.imgsrc);
         Glide.with(context)
                 .load(ci.imgsrc)
                         //.fitCenter()
                 .placeholder(R.drawable.load)
+                .thumbnail( 0.1f )
                 .crossFade()
                 .into(contactViewHolder.img_category);
+
+
+     /*   RequestQueue mRequestQueue;
+
+// Instantiate the cache
+        Cache cache = new DiskBasedCache(context.getCacheDir(), 1024 * 1024); // 1MB cap
+
+// Set up the network to use HttpURLConnection as the HTTP client.
+        Network network = new BasicNetwork(new HurlStack());
+
+// Instantiate the RequestQueue with the cache and network.
+        mRequestQueue = new RequestQueue(cache, network);
+
+// Start the queue
+        mRequestQueue.start();
+
+        // Retrieves an image specified by the URL, displays it in the UI.
+        ImageRequest request = new ImageRequest(ci.imgsrc,
+                new Response.Listener<Bitmap>() {
+                    @Override
+                    public void onResponse(Bitmap bitmap) {
+                        contactViewHolder.img_category.setImageBitmap(bitmap);
+                    }
+                }, 0, 0, null,
+                new Response.ErrorListener() {
+                    public void onErrorResponse(VolleyError error) {
+                        contactViewHolder.img_category.setImageResource(R.drawable.load);
+                    }
+                });
+// Access the RequestQueue through your singleton class.
+        mRequestQueue.add(request);*/
+
     }
 
     @Override
@@ -63,7 +99,9 @@ public class MainCategoryAdapter extends RecyclerView.Adapter<MainCategoryAdapte
 
     public class ContactViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,View.OnLongClickListener{
 
+        protected String subcategory;
         protected TextView title;
+        protected  TextView desc;
         protected ImageView img_category;
 
 
@@ -72,6 +110,7 @@ public class MainCategoryAdapter extends RecyclerView.Adapter<MainCategoryAdapte
             v.setOnClickListener(this);
             v.setOnLongClickListener(this);
             title =  (TextView) v.findViewById(R.id.title);
+            desc = (TextView) v.findViewById(R.id.description);
             img_category = (ImageView) v.findViewById(R.id.img);
 
         }
@@ -79,14 +118,14 @@ public class MainCategoryAdapter extends RecyclerView.Adapter<MainCategoryAdapte
         @Override
         public void onClick(View v) {
             if(clickListener!=null){
-                clickListener.itemClicked(v, getPosition());
+                clickListener.itemClicked(v, getPosition(), subcategory);
             }
         }
 
         @Override
         public boolean onLongClick(View v) {
             if(onLongClick!=null){
-                onLongClick.itemLongClicked(v,getPosition());
+                onLongClick.itemLongClicked(v,getPosition(), subcategory);
             }
 
             return false;
@@ -95,11 +134,11 @@ public class MainCategoryAdapter extends RecyclerView.Adapter<MainCategoryAdapte
 
     public interface ClickListener{
 
-        void itemClicked(View view, int position);
+        void itemClicked(View view, int position, String sc);
     }
 
     public interface onLongListener{
-        void itemLongClicked(View view, int position);
+        void itemLongClicked(View view, int position, String sc);
     }
 
 }

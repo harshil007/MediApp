@@ -1,0 +1,98 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="startup.com.mediapp.FeedbackFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:id="@+id/rating"
+        android:padding="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:layout_centerHorizontal="true"
+        android:textSize="17dp"
+        android:textColor="#ffffffff"
+        android:text="Are we doing good? Tell us, how you rate us" />
+
+    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/rating"
+        android:paddingLeft="25dp"
+        android:id="@+id/rate"
+        >
+
+        <RadioButton android:id="@+id/excellent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffffff"
+            android:text="Excellent"
+            />
+
+        <RadioButton android:id="@+id/very_good"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffffff"
+            android:text="Verygood"
+            />
+
+        <RadioButton android:id="@+id/good"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Good"
+            android:textColor="#ffffffff"
+            />
+
+        <RadioButton android:id="@+id/average"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Average"
+            android:textColor="#ffffffff"
+           />
+
+        <RadioButton android:id="@+id/poor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Poor"
+            android:textColor="#ffffffff"
+          />
+    </RadioGroup>
+
+
+    <TextView
+        android:id="@+id/commenttv"
+        android:padding="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignBottom="@+id/rating"
+        android:textSize="17dp"
+        android:textColor="#ffffffff"
+        android:text="Your Comments" />
+
+    <EditText
+        android:id="@+id/commentet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Comments"
+        android:textSize="17dp"
+        android:textColor="#ffffffff"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        />
+
+
+    <Button
+        android:id="@+id/submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textSize="17dp"
+        android:text="Submit"
+        android:layout_margin="30dp"
+        />
+</LinearLayout>

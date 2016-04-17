@@ -19,9 +19,17 @@
     <string name="title_activity_gallery_image">gallery_image</string>
     <string name="drawer_open">1</string>
     <string name="drawer_close">2</string>
-    <string name="action_settings">action</string>
+    <string name="logout">Logout</string>
+    <string name="action_settings">Action</string>
     <string name="Logout">Logout</string>
     <string name="AboutUS">AboutUs</string>
+    <string name="preference_file_key">startup.com.mediappPREFERENCE_FILE_KEY1</string>
+    <string name="Flag">Flag</string>
+    <string name="Email">Email</string>
+    <string name="Password">Password</string>
+    <string name="Default">false</string>
+    <string name="User">user</string>
+
 
     <string-array name="navigation_drawer_items_array">
         <item>Home</item>
@@ -81,6 +89,7 @@
     <string name="title_activity_download">download</string>
     <string name="title_activity_medicines">Medicines</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_customer">Customer</string>
 
 
 </resources>

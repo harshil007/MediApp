@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
@@ -17,7 +18,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -27,16 +27,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,20 +76,20 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private String emAddr;
     private String pass;
+    String user;
+
 
     protected ProgressDialog pDialog;
+    SharedPreferences sharedPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
 
-
         setContentView(R.layout.activity_login);
 
         setup();
-
-
 
     }
 
@@ -126,11 +116,18 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     @Override
     public void onClick(View v) {
+        //sharedPref = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+       // SharedPreferences.Editor editor = sharedPref.edit();
         switch (v.getId()){
             case R.id.login_button_cust :
+
+               // editor.putString(getString(R.string.User), "Customer");
+                user = "Customer";
                 attemptLogin(true);
                 break;
             case R.id.login_button_sell :
+                user = "Seller";
+               // editor.putString(getString(R.string.User), "Seller");
                 attemptLogin(false);
                 break;
             case R.id.link_signup :
@@ -269,10 +266,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 pDialog.show();
 
 
+                    emAddr = mEmailView.getText().toString();
+                    pass = mPasswordView.getText().toString();
+                    Login l = new Login(emAddr,pass,myIP,getApplicationContext(),user);
+                    l.SignIn();
+                pDialog.dismiss();
+                    //SignIn();
 
-                emAddr=mEmailView.getText().toString();
-                pass=mPasswordView.getText().toString();
-                SignIn();
+
+
                 //startActivity(intent1);
 
                 mAuthTask = new UserLoginTask(email, password);
@@ -282,7 +284,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         }
     }
-
+/*
     public void SignIn(){
 
         RequestQueue rq = Volley.newRequestQueue(this);
@@ -299,30 +301,54 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             e.printStackTrace();
         }
 
-        JsonObjectRequest req = new JsonObjectRequest(url, insert,
-                new Response.Listener<JSONObject>() {
+        JsonArrayRequest req = new JsonArrayRequest(url, insert,
+                new Response.Listener<JSONArray>() {
                     @Override
-                    public void onResponse(JSONObject response) {
+                    public void onResponse(JSONArray response) {
                         Log.d(TAG, response.toString());
+
+                        // Saving username and Password as a Shared Preference
+
+                        SharedPreferences.Editor editor = sharedPref.edit();
+                        editor.putString(getString(R.string.Flag), "true");
+                        editor.putString(getString(R.string.Email), emAddr);
+                        editor.putString(getString(R.string.Password), pass);
+                        editor.commit();
+
+
                         String uname="";
                         String imgUrl="";
+                        int success;
+                        String msg;
+                        String id,name,img_url;
+                        JSONArray flag;
+
                         try {
                             // Parsing json array response
                             // loop through each json objectString jsonRespons = response.toString();
                          // dialog.dismiss();
+                            Log.d("Response", response.toString());
+                            flag = response.getJSONArray(0);
 
-                            int success = response.getInt("success");
-
+                            success=flag.getInt(0);
+                            msg=flag.getString(1);
                             if(success==1) {
+
+                                id = response.getJSONArray(1).getString(0);
+                                name = response.getJSONArray(2).getString(0);
+                                img_url = response.getJSONArray(3).getString(0);
                                 pDialog.dismiss();
-                                Toast.makeText(getApplicationContext(),response.getString("message"),Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(),"Success",Toast.LENGTH_LONG).show();
                                 Intent i = new Intent(LoginActivity.this,MainCategory.class);
+                                i.putExtra("name",name);
+                                i.putExtra("img_url",img_url);
+                                i.putExtra("email",emAddr);
                                 startActivity(i);
                                 finish();
                             }
                             else{
                                 pDialog.dismiss();
-                                Toast.makeText(getBaseContext(), "Invalid e-mail address or Password !!",
+                                Toast.makeText(getBaseContext(), msg,
                                         Toast.LENGTH_LONG).show();
                             }
 
@@ -360,7 +386,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         rq.add(req);
     }
 
-
+*/
     protected void onDestroy() {
         // TODO Auto-generated method stub
         super.onDestroy();
@@ -497,7 +523,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
     public void onBackPressed() {
         // do something on back.
-      finish();
+        Intent a = new Intent(Intent.ACTION_MAIN);
+        a.addCategory(Intent.CATEGORY_HOME);
+        a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(a);
+
     }
+
 }
 
