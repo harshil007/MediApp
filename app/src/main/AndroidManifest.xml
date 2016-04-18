@@ -9,14 +9,21 @@
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
-
-
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
+    <permission android:name="startup.com.mediapp.permission.C2D_MESSAGE"
+        android:protectionLevel="signature"
+        />
+    <uses-permission android:name="startup.com.mediapp.permission.C2D_MESSAGE"/>
     <application
         android:allowBackup="true"
         android:icon="@drawable/icon_leaf"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
+
+       
+
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -58,7 +65,7 @@
 
 
         <activity
-            android:name=".ScrollingActivity"
+            android:name=".MainCategory"
             android:label="Category">
         </activity>
 
@@ -69,6 +76,11 @@
         <activity
             android:name=".CartActivity"
             android:label="Shopping cart">
+        </activity>
+
+        <activity
+            android:name=".OrderPlaceActivity"
+            android:label="Place order">
         </activity>
     </application>
 

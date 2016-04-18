@@ -45,7 +45,7 @@ import java.util.List;
 
 public class ItemListActivity extends AppCompatActivity{
 
-    ImageView iv_search,iv_cart;
+    ImageView iv_search,iv_cart,iv_refresh;
     TextView tv_title,tv_cart_quant,tv_cart_price;
     Button b_view_cart;
     RecyclerView rv;
@@ -84,13 +84,14 @@ public class ItemListActivity extends AppCompatActivity{
         //tv_title = (TextView) findViewById(R.id.tv_title);
         //iv_search = (ImageView) findViewById(R.id.iv_search);
         //iv_cart = (ImageView) findViewById(R.id.iv_cart);
+        iv_refresh = (ImageView) findViewById(R.id.iv_refresh);
         et_search = (EditText) findViewById(R.id.et_search);
         ll = (LinearLayout) findViewById(R.id.ll_item_main);
         b_view_cart = (Button) findViewById(R.id.b_view_cart);
         tv_cart_price = (TextView) findViewById(R.id.tv_cart_price);
         tv_cart_quant = (TextView) findViewById(R.id.tv_cart_quantity);
         tv_cart_price.setText("₹ "+0);
-
+/*
         category = getIntent().getExtras().getString("category");
         sub_category = getIntent().getExtras().getString("sub_category");
         if(sub_category.equals("nope")){
@@ -99,6 +100,12 @@ public class ItemListActivity extends AppCompatActivity{
         else{
             sb=1;
         }
+*/
+
+            category="medicines";
+            sub_category="nope";
+            sb=0;
+
 
         items_list=new ArrayList<>();
 
@@ -197,6 +204,18 @@ public class ItemListActivity extends AppCompatActivity{
             @Override
             public void afterTextChanged(Editable s) {
 
+            }
+        });
+
+
+        iv_refresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                items_list=new ArrayList<>();
+                fetch_items();
+                cart_price=0;
+                cart_quant=0;
+                set_text(""+cart_price,""+cart_quant);
             }
         });
 

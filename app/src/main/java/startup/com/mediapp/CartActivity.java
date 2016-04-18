@@ -1,5 +1,6 @@
 package startup.com.mediapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
@@ -27,7 +28,7 @@ import java.util.List;
 public class CartActivity extends AppCompatActivity implements View.OnClickListener{
 
     CartRecycleAdapter adapter;
-    private List<ItemModel> items_list;
+    private List<ItemModel> items_list,final_order;
     Button b_add_more,b_checkout;
     TextView tv_cart_price,tv_cart_quant,tv_clear_cart,tv_seller_name,tv_delivery;
     ImageView iv_edit_seller,iv_edit_date;
@@ -36,6 +37,7 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
     RecyclerView rv;
     int cart_quant;
     float cart_price;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -119,7 +121,16 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                 finish();
                 break;
             case R.id.b_checkout:
+                final_order = adapter.get_order();
 
+                Intent intent = new Intent(CartActivity.this,OrderPlaceActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelableArrayList("final_order",(ArrayList)final_order);
+                bundle.putFloat("price",cart_price);
+                bundle.putString("seller_id","s_951");
+                bundle.putString("arrival_time",tv_delivery.getText().toString());
+                intent.putExtras(bundle);
+                startActivity(intent);
                 break;
 
         }

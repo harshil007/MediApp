@@ -15,16 +15,18 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
-public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactViewHolder> {
+public class MainCategoryAdapter extends RecyclerView.Adapter<MainCategoryAdapter.ContactViewHolder> {
 
-    private List<ContactInfo> contactList;
+    private List<MainCategoryInfo> contactList;
+    private LayoutInflater inflater;
     Context context;
     ClickListener clickListener;
     onLongListener onLongClick;
 
-    public ContactAdapter(Context context, List<ContactInfo> contactList) {
+    public MainCategoryAdapter(Context context, List<MainCategoryInfo> contactList) {
         this.contactList = contactList;
         this.context = context;
+        inflater = LayoutInflater.from(context);
     }
 
 
@@ -34,13 +36,13 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
     }
 
     @Override
-    public void onBindViewHolder(ContactViewHolder contactViewHolder, int i) {
-        ContactInfo ci = contactList.get(i);
+    public void onBindViewHolder(final ContactViewHolder contactViewHolder, int i) {
+        MainCategoryInfo ci = contactList.get(i);
         contactViewHolder.title.setText(ci.name);
         //contactViewHolder.img_category.setImageResource(ci.imgsrc);
         Glide.with(context)
                 .load(ci.imgsrc)
-                        //.fitCenter()
+                .centerCrop()
                 .placeholder(R.drawable.load)
                 .crossFade()
                 .into(contactViewHolder.img_category);
@@ -48,9 +50,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
 
     @Override
     public ContactViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View itemView = LayoutInflater.
-                from(viewGroup.getContext()).
-                inflate(R.layout.card_layout, viewGroup, false);
+        View itemView = inflater.inflate(R.layout.card_layout, viewGroup, false);
 
         return new ContactViewHolder(itemView);
     }

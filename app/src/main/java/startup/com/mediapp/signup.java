@@ -44,26 +44,26 @@ public class signup extends AppCompatActivity {
     private static final String TAG = "SignupActivity";
     ProgressDialog pDialog;
     String encodedString;
-    String fileName="";
+    String fileName = "";
     private static int RESULT_LOAD_IMG = 1;
     ImageView imgv;
     String eAdd;
     String pwd;
     String uname;
-    int flag=0;
+    int flag = 0;
 
-    public String name,password,email,mobile,confirm;
+    public String name, password, email, mobile, confirm;
 
     private static String cid;
 
-    EditText _nameText,_emailText,_passwordText,_confirmpasswordText,_mobileText;
+    EditText _nameText, _emailText, _passwordText, _confirmpasswordText, _mobileText;
 
-    EditText et,pt,unam;
+    EditText et, pt, unam;
 
     public int type;
 
     RadioGroup rg;
-    RadioButton rb_cust,rb_sell;
+    RadioButton rb_cust, rb_sell;
     Button _signupButton;
 
     TextView _loginLink;
@@ -81,20 +81,20 @@ public class signup extends AppCompatActivity {
 
     }
 
-    private void setup(){
-        _nameText=(EditText)findViewById(R.id.input_name);
-        _emailText=(EditText)findViewById(R.id.input_email);
-        _passwordText=(EditText)findViewById(R.id.input_password);
-        _confirmpasswordText=(EditText)findViewById(R.id.confirm_password);
-        _mobileText=(EditText)findViewById(R.id.input_mobile);
-        _signupButton=(Button)findViewById(R.id.btn_signup);
-        _loginLink=(TextView)findViewById(R.id.link_login);
+    private void setup() {
+        _nameText = (EditText) findViewById(R.id.input_name);
+        _emailText = (EditText) findViewById(R.id.input_email);
+        _passwordText = (EditText) findViewById(R.id.input_password);
+        _confirmpasswordText = (EditText) findViewById(R.id.confirm_password);
+        _mobileText = (EditText) findViewById(R.id.input_mobile);
+        _signupButton = (Button) findViewById(R.id.btn_signup);
+        _loginLink = (TextView) findViewById(R.id.link_login);
         //rg = (RadioGroup)findViewById(R.id.rg_signup);
-        rb_sell = (RadioButton)findViewById(R.id.rb_sell);
-        rb_cust = (RadioButton)findViewById(R.id.rb_cust);
+        rb_sell = (RadioButton) findViewById(R.id.rb_sell);
+        rb_cust = (RadioButton) findViewById(R.id.rb_cust);
 
 
-        et =(EditText) findViewById(R.id.input_email);
+        et = (EditText) findViewById(R.id.input_email);
         unam = (EditText) findViewById(R.id.input_name);
         pt = (EditText) findViewById(R.id.input_password);
 
@@ -120,21 +120,21 @@ public class signup extends AppCompatActivity {
         boolean checked = ((RadioButton) view).isChecked();
 
         // Check which radio button was clicked
-        switch(view.getId()) {
+        switch (view.getId()) {
             case R.id.rb_cust:
-                if (!checked){
+                if (!checked) {
                     rb_cust.toggle();
                     rb_sell.toggle();
                 }
 
-                    break;
+                break;
             case R.id.rb_sell:
-                if (!checked){
+                if (!checked) {
                     rb_cust.toggle();
                     rb_sell.toggle();
                 }
 
-                    break;
+                break;
         }
     }
 
@@ -152,20 +152,20 @@ public class signup extends AppCompatActivity {
         String email = _emailText.getText().toString();
         String password = _passwordText.getText().toString();
         String mobile = _mobileText.getText().toString();
-        int c = (int)(Math.random()*1000);
-        cid = "c_"+c;
+        int c = (int) (Math.random() * 1000);
+        cid = "c_" + c;
 
 
         String url = "http://mediapp.netai.net/insert_cust.php";
         final String TAG = MainActivity.class.getSimpleName();
-            flag=0;
+        flag = 0;
 
         JSONObject insert = new JSONObject();
         try {
-            insert.put("cid",cid);
+            insert.put("cid", cid);
             insert.put("email", email);
             insert.put("password", password);
-            insert.put("name",name);
+            insert.put("name", name);
             insert.put("mobile", mobile);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -187,17 +187,16 @@ public class signup extends AppCompatActivity {
 
                             pDialog.dismiss();
 
-                            if(jsonResponse==1){
+                            if (jsonResponse == 1) {
 
                                 Toast.makeText(getApplicationContext(),
                                         "Account created successfully!",
                                         Toast.LENGTH_LONG).show();
-                                Intent i = new Intent(signup.this,PostSignupCust.class);
-                                i.putExtra("cid",cid);
+                                Intent i = new Intent(signup.this, PostSignupCust.class);
+                                i.putExtra("cid", cid);
                                 startActivity(i);
                                 finish();
-                            }
-                            else{
+                            } else {
                                 Toast.makeText(getApplicationContext(),
                                         "Account cannot be created! Try again",
                                         Toast.LENGTH_LONG).show();
@@ -236,7 +235,6 @@ public class signup extends AppCompatActivity {
     }
 
 
-
     @Override
     protected void onDestroy() {
         // TODO Auto-generated method stub
@@ -256,14 +254,13 @@ public class signup extends AppCompatActivity {
         }
 
 
-        if(rb_cust.isChecked()){
-            type=0;
+        if (rb_cust.isChecked()) {
+            type = 0;
             pDialog = new ProgressDialog(signup.this);
             pDialog.setMessage("Creating account...");
             pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             pDialog.setCancelable(false);
             pDialog.show();
-
 
 
             // TODO: Implement your own signup logic here.
@@ -277,18 +274,17 @@ public class signup extends AppCompatActivity {
                             // onSignupFailed();
                         }
                     }, 3000);
-        }
-        else if(rb_sell.isChecked()){
-            type=1;
-            int s = (int)(Math.random()*1000);
-            String sid = "s_"+s;
-            Intent i = new Intent(signup.this,PostSignupSell.class);
+        } else if (rb_sell.isChecked()) {
+            type = 1;
+            int s = (int) (Math.random() * 1000);
+            String sid = "s_" + s;
+            Intent i = new Intent(signup.this, PostSignupSell.class);
 
-            i.putExtra("name",name);
-            i.putExtra("email",email);
-            i.putExtra("password",password);
-            i.putExtra("mobile",mobile);
-            i.putExtra("sid",sid);
+            i.putExtra("name", name);
+            i.putExtra("email", email);
+            i.putExtra("password", password);
+            i.putExtra("mobile", mobile);
+            i.putExtra("sid", sid);
             startActivity(i);
         }
 
@@ -303,7 +299,7 @@ public class signup extends AppCompatActivity {
         setResult(RESULT_OK, null);
         eAdd = et.getText().toString();
         pwd = pt.getText().toString();
-        uname=unam.getText().toString();
+        uname = unam.getText().toString();
 // hide keyboard
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(et.getWindowToken(), 0);
@@ -355,15 +351,13 @@ public class signup extends AppCompatActivity {
             _confirmpasswordText.setError(null);
         }
 
-        if(mobile.isEmpty()){
+        if (mobile.isEmpty()) {
             _mobileText.setError("This field is compulsory");
             valid = false;
-        }
-        else if(mobile.length()!=10){
+        } else if (mobile.length() != 10) {
             _mobileText.setError("Mobile number must be of 10 digits");
             valid = false;
-        }
-        else{
+        } else {
             _mobileText.setError(null);
         }
 

@@ -250,7 +250,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             if(email.equals("admin@mediapp.com") && password.equals("admin")){
                 Toast.makeText(getApplicationContext(),"Admin login",Toast.LENGTH_LONG);
-                Intent i = new Intent(LoginActivity.this,ScrollingActivity.class);
+                Intent i = new Intent(LoginActivity.this,MainCategory.class);
                 startActivity(i);
                 finish();
             }
@@ -325,7 +325,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             if(success==1) {
                                 pDialog.dismiss();
                                 Toast.makeText(getApplicationContext(),response.getString("message"),Toast.LENGTH_LONG).show();
-                                Intent i = new Intent(LoginActivity.this,ScrollingActivity.class);
+                                Intent i = new Intent(LoginActivity.this,MainCategory.class);
                                 startActivity(i);
                                 finish();
                             }

@@ -4,16 +4,20 @@ import android.content.Context;
 import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.TranslateAnimation;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bignerdranch.expandablerecyclerview.ViewHolder.ParentViewHolder;
 import com.bumptech.glide.DrawableRequestBuilder;
 import com.bumptech.glide.Glide;
 
@@ -78,6 +82,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHo
         holder.tvItemName.setText(model.getName());
         holder.tvBrandName.setText(model.getBrand_name());
         holder.tvPrice.setText("₹ " + model.getPrice());
+        holder.tvDesc.setText(model.getDescription());
         Glide.with(context)
                 .load(model.getImg_url())
                 .placeholder(R.drawable.load)
@@ -145,6 +150,29 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHo
                     Toast.makeText(context, "Already added !!", Toast.LENGTH_SHORT).show();
                 }
 
+            }
+        });
+
+        holder.tvClickDesc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(holder.cv_child.getVisibility() == View.GONE){
+                    holder.cv_child.setVisibility(View.VISIBLE);
+                    /*TranslateAnimation animate = new TranslateAnimation(0,0,0,holder.cv_main.getHeight());
+                    animate.setDuration(500);
+                    animate.setFillAfter(true);
+                    holder.cv_child.startAnimation(animate);*/
+                    //holder.cv_child.animate().translationY(holder.cv_child.getHeight()).alpha(0.0f).setDuration(2000);;
+                }
+                else{
+                    /*
+                    TranslateAnimation animate = new TranslateAnimation(0,0,0,-holder.cv_main.getHeight());
+                    animate.setDuration(500);
+                    animate.setFillAfter(true);
+                    holder.cv_child.startAnimation(animate);*/
+                    //holder.cv_child.animate().translationY(-holder.cv_child.getHeight()).alpha(0.0f).setDuration(2000);;
+                    holder.cv_child.setVisibility(View.GONE);
+                }
             }
         });
 
@@ -216,13 +244,18 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHo
         this.onLongClick = onLongClick;
     }
 
+
+
+
+
     class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
-        private final TextView tvItemName, tvPrice,tvQuantity, tvClickDesc, tvBrandName;
+        private final TextView tvItemName, tvPrice,tvQuantity, tvClickDesc, tvBrandName,tvDesc;
         //private final EditText etQuantity;
         private final ImageView iv_item,iv_add,iv_remove;
         private final FloatingActionButton fab_add_cart;
         private final LinearLayout ll_add_remove;
+        private final CardView cv_child,cv_main;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -240,8 +273,9 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHo
             ll_add_remove = (LinearLayout) itemView.findViewById(R.id.ll_add_remove);
             iv_add = (ImageView) itemView.findViewById(R.id.iv_add);
             iv_remove = (ImageView) itemView.findViewById(R.id.iv_remove);
-
-
+            cv_child = (CardView) itemView.findViewById(R.id.card_list_item_desc);
+            tvDesc = (TextView) itemView.findViewById(R.id.tv_description);
+            cv_main = (CardView) itemView.findViewById(R.id.cv_list_main);
         }
 
         @Override

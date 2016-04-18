@@ -81,6 +81,7 @@
     <string name="title_activity_download">download</string>
     <string name="title_activity_medicines">Medicines</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="dummy_addr">Harshil Laheri\n18-A, Nandanvan Society, \nChandkheda, Ahmedabad\n382424</string>
 
 
 </resources>

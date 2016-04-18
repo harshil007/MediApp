@@ -2,14 +2,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/login_bck"
+    >
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:id="@+id/ll_item_main"
-    android:background="#fff"
+    android:background="@color/login_bck"
     >
 
     <android.support.v7.widget.Toolbar
@@ -74,7 +76,19 @@
                 android:nextFocusLeft="@id/et_search"
                 />
 
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#000" />
 
+            <ImageView
+                android:id="@+id/iv_refresh"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_refresh_black_24dp"
+                android:tint="#616161"
+                android:layout_gravity="center_vertical"
+                />
 
 
 
@@ -87,20 +101,24 @@
     </android.support.v7.widget.Toolbar>
 
 
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/rc_items_list"
 
-        >
-
-
-    </android.support.v7.widget.RecyclerView>
 
 
 
 </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/rc_items_list"
+        android:layout_above="@+id/rl_bottom_item_list"
+        android:layout_below="@+id/ll_item_main"
+        >
+
+
+    </android.support.v7.widget.RecyclerView>
     <RelativeLayout
+        android:id="@+id/rl_bottom_item_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

@@ -57,13 +57,13 @@ public class MainActivity extends Activity {
         public void run() {
             try {
                 // Sleeping
-                Thread.sleep(SLEEP_TIME*1000);
+                Thread.sleep(SLEEP_TIME*1);
             } catch (Exception e) {
                 Log.e(TAG, e.getMessage());
             }
 
             // Start main activity
-            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            Intent intent = new Intent(MainActivity.this, ItemListActivity.class);
             MainActivity.this.startActivity(intent);
             MainActivity.this.finish();
         }

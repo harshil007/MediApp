@@ -21,7 +21,7 @@ import java.util.List;
 public class CartRecycleAdapter extends RecyclerView.Adapter<CartRecycleAdapter.MyViewHolder>  {
 
     Context context;
-    private final List<ItemModel> mModels;
+    private final List<ItemModel> mModels,myModels;
     ClickListener clickListener;
     onLongListener onLongClick;
     private LayoutInflater inflater;
@@ -32,10 +32,15 @@ public class CartRecycleAdapter extends RecyclerView.Adapter<CartRecycleAdapter.
         this.context = context;
         inflater = LayoutInflater.from(context);
         mModels = new ArrayList<>(models);
+        myModels = new ArrayList<>(mModels);
         this.cart_quant = cart_quant;
         this.price = price;
 
         //iA = new ItemListActivity();
+    }
+
+    public List<ItemModel> get_order(){
+        return mModels;
     }
 
     @Override
@@ -82,9 +87,10 @@ public class CartRecycleAdapter extends RecyclerView.Adapter<CartRecycleAdapter.
                     holder.tvQuant.setText(String.valueOf(model.getQuantity()));
                     if(model.getQuantity()==0){
                         model.setIs_added(0);
-                        mModels.remove(position);
+                        removeItem(position);
+                       notifyDataSetChanged();
                         cart_quant = cart_quant - 1;
-                        animateTo(mModels);
+                        //animateTo(myModels);
                     }
                     String qt = "" + cart_quant;
                     ((CartActivity)context).set_text(p,qt);
@@ -95,11 +101,12 @@ public class CartRecycleAdapter extends RecyclerView.Adapter<CartRecycleAdapter.
         holder.iv_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                price = price - Float.parseFloat(model.getPrice());
+                price = price - model.getQuantity()*Float.parseFloat(model.getPrice());
                 String p = "" + price;
-                mModels.remove(position);
+                removeItem(position);
+                notifyDataSetChanged();
                 cart_quant = cart_quant - 1;
-                animateTo(mModels);
+                //animateTo(myModels);
                 String qt = "" + cart_quant;
                 ((CartActivity)context).set_text(p,qt);
             }
