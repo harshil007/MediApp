@@ -9,6 +9,7 @@ import android.app.ProgressDialog;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
@@ -71,6 +72,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private Intent intent1;
     private Intent intent2;
 
+
+
     /**
      * A dummy authentication store containing known user names and passwords.
      * TODO: remove after connecting to a real authentication system.
@@ -97,6 +100,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private String pass;
 
     protected ProgressDialog pDialog;
+
+    String user;
+    SharedPreferences sharedPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,11 +141,17 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     @Override
     public void onClick(View v) {
+        //sharedPref = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        // SharedPreferences.Editor editor = sharedPref.edit();
         switch (v.getId()){
             case R.id.login_button_cust :
+                // editor.putString(getString(R.string.User), "Customer");
+                user = "Customer";
                 attemptLogin(true);
                 break;
             case R.id.login_button_sell :
+                user = "Seller";
+                // editor.putString(getString(R.string.User), "Seller");
                 attemptLogin(false);
                 break;
             case R.id.link_signup :
@@ -281,7 +293,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                 emAddr=mEmailView.getText().toString();
                 pass=mPasswordView.getText().toString();
-                SignIn();
+                Login l = new Login(emAddr,pass,myIP,getApplicationContext(),user);
+                l.SignIn();
+                pDialog.dismiss();
                 //startActivity(intent1);
 
                 mAuthTask = new UserLoginTask(email, password);
@@ -506,7 +520,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
     public void onBackPressed() {
         // do something on back.
-      finish();
+        Intent a = new Intent(Intent.ACTION_MAIN);
+        a.addCategory(Intent.CATEGORY_HOME);
+        a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(a);
     }
 }
 

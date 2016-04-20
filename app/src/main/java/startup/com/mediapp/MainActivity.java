@@ -1,6 +1,8 @@
 package startup.com.mediapp;
 
 import android.annotation.TargetApi;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -27,7 +29,10 @@ public class MainActivity extends Activity {
 
 
     private static String TAG = MainActivity.class.getName();
-    private static long SLEEP_TIME = 5;    // Sleep for some time
+    private static long SLEEP_TIME = 3500;    // Sleep for some time
+    private SharedPreferences sharedPref;
+    private String e,p,url,user;
+    View view;
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Override
@@ -57,15 +62,49 @@ public class MainActivity extends Activity {
         public void run() {
             try {
                 // Sleeping
-                Thread.sleep(SLEEP_TIME*1);
+                Thread.sleep(SLEEP_TIME);
+                sharedPref = getApplicationContext().
+                        getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE );
+                String defaultValue = getResources().getString(R.string.Default);
+                String flag = sharedPref.getString(getString(R.string.Flag), defaultValue);
+                Log.d("Flag", flag);
+
+                user = sharedPref.getString(getString(R.string.User), defaultValue);
+                e = sharedPref.getString(getString(R.string.Email), defaultValue);
+                p = sharedPref.getString(getString(R.string.Password), defaultValue);
+
+                Log.d("user", user);
+                Log.d("Flag", e);
+                Log.d("Flag", p);
+                if(!flag.equals("false") &&  !user.equals("false") && !e.equals("false") && !p.equals("false")){
+
+
+                    if(user.equals("Customer")) {
+
+                        url = "http://mediapp.netai.net/login_cust.php";
+                    }
+
+                    else if(user.equals("Seller")){
+
+                        url = "http://mediapp.netai.net/login_sell.php";
+                    }
+                    Login l = new Login(e,p,url,getApplicationContext(),user);
+                    l.SignIn();
+
+                }
+                else{
+                    // Start main activity
+                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                    MainActivity.this.startActivity(intent);
+                    MainActivity.this.finish();
+
+                }
+
             } catch (Exception e) {
                 Log.e(TAG, e.getMessage());
             }
 
-            // Start main activity
-            Intent intent = new Intent(MainActivity.this, ItemListActivity.class);
-            MainActivity.this.startActivity(intent);
-            MainActivity.this.finish();
+
         }
     }
 }

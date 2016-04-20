@@ -12,14 +12,18 @@ import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -37,7 +41,8 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
     RecyclerView rv;
     int cart_quant;
     float cart_price;
-
+    Spinner sp_day,sp_time;
+    String del_day,del_time;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,7 +74,38 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
         iv_edit_seller = (ImageView) findViewById(R.id.iv_edit_seller);
         iv_edit_seller.setOnClickListener(this);
 
+        del_day="Today";
+        del_time="ASAP";
         tv_delivery.setText("Today, ASAP");
+        sp_day = (Spinner) findViewById(R.id.spinner_delivery_day);
+        sp_time = (Spinner) findViewById(R.id.spinner_delivery_time);
+
+        final List<String> spinnerDay =  new ArrayList<String>();
+        spinnerDay.add("Today");
+        spinnerDay.add("Tommorow");
+        spinnerDay.add("Day after Tommorow");
+
+
+
+
+        ArrayAdapter<String> adapterDay = new ArrayAdapter<String>(
+                this, android.R.layout.simple_spinner_item, spinnerDay);
+
+        adapterDay.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        sp_day.setAdapter(adapterDay);
+
+
+        final String[] times = {"10:00 am","11:00 am","12:00 pm","1:00 pm","2:00 pm","3:00 pm","4:00 pm","5:00 pm","6:00 pm","7:00 pm"};
+        List<String> spinnerTime =  new ArrayList<String>();
+        spinnerTime = Arrays.asList(times);
+
+        ArrayAdapter<String> adapterTime = new ArrayAdapter<String>(
+                this, android.R.layout.simple_spinner_item, spinnerTime);
+
+        adapterTime.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        sp_time.setAdapter(adapterTime);
 
         b_add_more = (Button) findViewById(R.id.b_add_more);
         b_checkout = (Button) findViewById(R.id.b_checkout);
@@ -94,6 +130,29 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
         };
         rv.setLayoutManager(linearLayoutManager);
 
+        sp_day.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                del_day = spinnerDay.get(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        sp_time.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                del_time = times[position];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
 
         //ItemTouchHelper.Callback callback = new MyItemTouchHelper(adapter);
@@ -128,7 +187,7 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                 bundle.putParcelableArrayList("final_order",(ArrayList)final_order);
                 bundle.putFloat("price",cart_price);
                 bundle.putString("seller_id","s_951");
-                bundle.putString("arrival_time",tv_delivery.getText().toString());
+                bundle.putString("arrival_time",del_day+", "+del_time);
                 intent.putExtras(bundle);
                 startActivity(intent);
                 break;

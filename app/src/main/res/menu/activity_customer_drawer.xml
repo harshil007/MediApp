@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/home"
+            android:icon="@drawable/ic_home_black_24dp"
+            android:title="Home" />
+        <item
+            android:id="@+id/notifications"
+            android:icon="@drawable/ic_notifications_black_24dp"
+            android:title="Notifications" />
+        <item
+            android:id="@+id/cart"
+            android:icon="@drawable/ic_shopping_cart_black_24dp"
+            android:title="Cart" />
+
+        <item
+            android:id="@+id/feedback"
+            android:icon="@drawable/ic_feedback_black_24dp"
+            android:title="Feedback" />
+
+    </group>
+
+
+
+    <item android:title="Your Account">
+        <menu>
+
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/orders"
+                    android:icon="@drawable/ic_receipt_black_24dp"
+                    android:title="Orders" />
+
+                <item
+                    android:id="@+id/profile"
+                    android:icon="@drawable/ic_face_black_24dp"
+                    android:title="Profile" />
+
+                <item
+                    android:id="@+id/settings"
+                    android:icon="@drawable/ic_menu_manage"
+                    android:title="Settings" />
+
+
+            </group>
+        </menu>
+
+    </item>
+
+
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/share"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Share" />
+        </menu>
+    </item>
+
+</menu>

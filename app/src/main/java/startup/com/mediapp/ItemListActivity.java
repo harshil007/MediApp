@@ -45,7 +45,7 @@ import java.util.List;
 
 public class ItemListActivity extends AppCompatActivity{
 
-    ImageView iv_search,iv_cart,iv_refresh;
+    ImageView iv_search,iv_cart,iv_refresh,iv_back;
     TextView tv_title,tv_cart_quant,tv_cart_price;
     Button b_view_cart;
     RecyclerView rv;
@@ -91,7 +91,9 @@ public class ItemListActivity extends AppCompatActivity{
         tv_cart_price = (TextView) findViewById(R.id.tv_cart_price);
         tv_cart_quant = (TextView) findViewById(R.id.tv_cart_quantity);
         tv_cart_price.setText("₹ "+0);
-/*
+
+
+
         category = getIntent().getExtras().getString("category");
         sub_category = getIntent().getExtras().getString("sub_category");
         if(sub_category.equals("nope")){
@@ -100,12 +102,12 @@ public class ItemListActivity extends AppCompatActivity{
         else{
             sb=1;
         }
-*/
 
+/*
             category="medicines";
             sub_category="nope";
             sb=0;
-
+*/
 
         items_list=new ArrayList<>();
 
@@ -120,7 +122,13 @@ public class ItemListActivity extends AppCompatActivity{
         items_list.add(i);*/
 
 
-
+        iv_back = (ImageView) findViewById(R.id.iv_back);
+        iv_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
 
         adapter = new RecycleAdapter(this,items_list);

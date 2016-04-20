@@ -2,7 +2,9 @@ package startup.com.mediapp;
 
 import android.app.ProgressDialog;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -21,9 +23,11 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -46,6 +50,9 @@ public class OrderPlaceActivity extends AppCompatActivity {
     private RequestQueue mQueue;
     Toolbar toolbar;
     String url = "http://mediapp.netai.net/place_order.php";
+    SharedPreferences sharedPref;
+    String fetch_url = "http://mediapp.netai.net/CustomerDetails.php";
+    String display_name,mobile,address;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,8 +70,13 @@ public class OrderPlaceActivity extends AppCompatActivity {
         tv_num = (TextView) findViewById(R.id.tv_checkout_num);
         tv_addr = (TextView) findViewById(R.id.tv_checkout_addr);
         tv_amt = (TextView) findViewById(R.id.tv_checkout_amt);
+        pDialog = new ProgressDialog(this);
+        pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        pDialog.setCancelable(false);
+        pDialog.setMessage("Getting details...");
 
 
+        fetch_details();
 
         ib_change_addr = (ImageButton) findViewById(R.id.ib_checkout_change_addr);
         b_place_order = (Button) findViewById(R.id.b_place_order);
@@ -95,8 +107,88 @@ public class OrderPlaceActivity extends AppCompatActivity {
 
     }
 
+    private void fetch_details() {
+        pDialog.show();
+        sharedPref = this.getSharedPreferences(this.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        String email = sharedPref.getString(this.getString(R.string.Email),"YO");
+        String password = sharedPref.getString(this.getString(R.string.Password),"YO");
+
+        JSONObject son = new JSONObject();
+        try {
+            son.put("email",email);
+            son.put("password",password);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonArrayRequest jreq = new JsonArrayRequest(fetch_url, son, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                try {
+                    JSONArray id = response.getJSONArray(0);
+                    JSONArray name = response.getJSONArray(1);
+                    JSONArray image = response.getJSONArray(2);
+                    JSONArray addr_id = response.getJSONArray(3);
+                    JSONArray addr_id_main = response.getJSONArray(4);
+                    JSONArray addr_no = response.getJSONArray(5);
+                    JSONArray soc_name = response.getJSONArray(6);
+                    JSONArray loc = response.getJSONArray(7);
+                    JSONArray city = response.getJSONArray(8);
+                    JSONArray state = response.getJSONArray(9);
+                    JSONArray pincode = response.getJSONArray(10);
+                    JSONArray mob_no = response.getJSONArray(11);
+
+                    String c_id = id.getString(0);
+                    String user_name = id.getString(0);
+                    display_name = user_name;
+                    String mobile_num = mob_no.getString(0);
+                    String house_num = addr_no.getString(0);
+                    String society = soc_name.getString(0);
+                    String locality = loc.getString(0);
+                    String city_name = city.getString(0);
+                    String pin = pincode.getString(0);
+
+                    mobile = mobile_num;
+
+                    address = display_name+"\n"+house_num+", "+society+",\n"+locality+", "+city_name+"\n"+pin;
+                    setDetails();
+
+
+
+                } catch (JSONException e) {
+                    //Toast.makeText(OrderPlaceActivity.this,"Error in catch",Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                }
+                pDialog.dismiss();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                pDialog.dismiss();
+                //Toast.makeText(OrderPlaceActivity.this,"Error in response",Toast.LENGTH_SHORT).show();
+                error.printStackTrace();
+            }
+        });
+
+        jreq.setRetryPolicy(new DefaultRetryPolicy(
+                5000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        mQueue.add(jreq);
+
+
+
+    }
+
+    private void setDetails() {
+        tv_addr.setText(address);
+        tv_name.setText(display_name);
+        tv_num.setText(mobile);
+    }
+
     private void place_order() {
-        pDialog = new ProgressDialog(this);
+
         pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         pDialog.setCancelable(false);
         pDialog.setMessage("Placing your order...");

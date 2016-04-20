@@ -128,7 +128,7 @@ public class PostSignupCust extends AppCompatActivity implements View.OnClickLis
         String image_name="";
 
         pDialog = new ProgressDialog(PostSignupCust.this);
-        image_name=cid;
+        image_name=cid+".png";
         image_url="http://mediapp.netai.net/Images/"+image_name;
 
         new FTP().execute(image_name, is);
