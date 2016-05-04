@@ -31,7 +31,6 @@
     <string name="User">user</string>
 
 
-
     <string-array name="navigation_drawer_items_array">
         <item>Home</item>
         <item>Profile</item>
@@ -92,6 +91,10 @@
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="dummy_addr">Harshil Laheri\n18-A, Nandanvan Society, \nChandkheda, Ahmedabad\n382424</string>
     <string name="title_activity_customer">Customer</string>
+    <string name="title_activity_pill_chooser">PillChooser</string>
+    <string name="title_activity_alarm">AlarmActivity</string>
+    <string name="title_activity_dosage">Dosage</string>
+    <string name="title_activity_seller_order">SellerOrderActivity</string>
 
 
 </resources>

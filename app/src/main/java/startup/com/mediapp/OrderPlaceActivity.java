@@ -1,7 +1,6 @@
 package startup.com.mediapp;
 
 import android.app.ProgressDialog;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,7 +16,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -25,7 +23,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.JsonRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -52,7 +49,7 @@ public class OrderPlaceActivity extends AppCompatActivity {
     String url = "http://mediapp.netai.net/place_order.php";
     SharedPreferences sharedPref;
     String fetch_url = "http://mediapp.netai.net/CustomerDetails.php";
-    String display_name,mobile,address;
+    String id,display_name,mobile,address;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -75,8 +72,18 @@ public class OrderPlaceActivity extends AppCompatActivity {
         pDialog.setCancelable(false);
         pDialog.setMessage("Getting details...");
 
+        sharedPref=getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
 
-        fetch_details();
+        id=sharedPref.getString("id","c_655");
+        display_name = sharedPref.getString("name","Harshil Laheri");
+        mobile=sharedPref.getString("mob_no","8238522541");
+        String adr = sharedPref.getString("addr_no","18A")+", "+sharedPref.getString("soc_name","Nandanvan bunglows")+",\n"+
+                sharedPref.getString("loc","Chandkheda")+", "+sharedPref.getString("city","Ahmedabad")+",\n"+sharedPref.getString("pincode","382424");
+        address = adr;
+
+        setDetails();
+
+        //fetch_details();
 
         ib_change_addr = (ImageButton) findViewById(R.id.ib_checkout_change_addr);
         b_place_order = (Button) findViewById(R.id.b_place_order);
@@ -107,7 +114,7 @@ public class OrderPlaceActivity extends AppCompatActivity {
 
     }
 
-    private void fetch_details() {
+    /*private void fetch_details() {
         pDialog.show();
         sharedPref = this.getSharedPreferences(this.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         String email = sharedPref.getString(this.getString(R.string.Email),"YO");
@@ -115,6 +122,7 @@ public class OrderPlaceActivity extends AppCompatActivity {
 
         JSONObject son = new JSONObject();
         try {
+            Log.d("email",email);
             son.put("email",email);
             son.put("password",password);
         } catch (JSONException e) {
@@ -124,22 +132,26 @@ public class OrderPlaceActivity extends AppCompatActivity {
         JsonArrayRequest jreq = new JsonArrayRequest(fetch_url, son, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
+
+                Log.d("Response: ",response.toString());
+                Toast.makeText(OrderPlaceActivity.this,"Error in try",Toast.LENGTH_SHORT).show();
+
                 try {
                     JSONArray id = response.getJSONArray(0);
                     JSONArray name = response.getJSONArray(1);
                     JSONArray image = response.getJSONArray(2);
                     JSONArray addr_id = response.getJSONArray(3);
-                    JSONArray addr_id_main = response.getJSONArray(4);
-                    JSONArray addr_no = response.getJSONArray(5);
-                    JSONArray soc_name = response.getJSONArray(6);
-                    JSONArray loc = response.getJSONArray(7);
-                    JSONArray city = response.getJSONArray(8);
-                    JSONArray state = response.getJSONArray(9);
-                    JSONArray pincode = response.getJSONArray(10);
-                    JSONArray mob_no = response.getJSONArray(11);
+                    //JSONArray addr_id_main = response.getJSONArray(4);
+                    JSONArray addr_no = response.getJSONArray(4);
+                    JSONArray soc_name = response.getJSONArray(5);
+                    JSONArray loc = response.getJSONArray(6);
+                    JSONArray city = response.getJSONArray(7);
+                    JSONArray state = response.getJSONArray(8);
+                    JSONArray pincode = response.getJSONArray(9);
+                    JSONArray mob_no = response.getJSONArray(10);
 
                     String c_id = id.getString(0);
-                    String user_name = id.getString(0);
+                    String user_name = name.getString(0);
                     display_name = user_name;
                     String mobile_num = mob_no.getString(0);
                     String house_num = addr_no.getString(0);
@@ -156,7 +168,7 @@ public class OrderPlaceActivity extends AppCompatActivity {
 
 
                 } catch (JSONException e) {
-                    //Toast.makeText(OrderPlaceActivity.this,"Error in catch",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(OrderPlaceActivity.this,"Error in catch",Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
                 }
                 pDialog.dismiss();
@@ -165,21 +177,21 @@ public class OrderPlaceActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 pDialog.dismiss();
-                //Toast.makeText(OrderPlaceActivity.this,"Error in response",Toast.LENGTH_SHORT).show();
+                Toast.makeText(OrderPlaceActivity.this,"Error in response",Toast.LENGTH_SHORT).show();
                 error.printStackTrace();
             }
         });
 
-        jreq.setRetryPolicy(new DefaultRetryPolicy(
-                5000,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+       // jreq.setRetryPolicy(new DefaultRetryPolicy(
+              //  5000,
+              //  DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+               // DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
         mQueue.add(jreq);
 
 
 
-    }
+    }*/
 
     private void setDetails() {
         tv_addr.setText(address);
@@ -202,14 +214,14 @@ public class OrderPlaceActivity extends AppCompatActivity {
             quants.append(model.getQuantity() + ",");
         }
 
-        String ids = p_ids.toString();
+        final String ids = p_ids.toString();
         String quantitites = quants.toString();
         String status = "PLACED";
         Calendar c = Calendar.getInstance();
         String order_date = "" + c.get(Calendar.DATE)+"/"+c.get(Calendar.MONTH)+"/"+c.get(Calendar.YEAR);
 
-        String order_id = "o_" + c.getTimeInMillis() + "c_104";     //Change this Line Bro..
-        String c_id = "c_104";                                  //This one too
+        String order_id = "o_" + c.getTimeInMillis() + id;     //Change this Line Bro..
+        String c_id = id;                                  //This one too
         String Arrival_time = arrival_time;
 
         JSONObject order_details = new JSONObject();
@@ -244,6 +256,13 @@ public class OrderPlaceActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(),
                                 "Order Placed!",
                                 Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(OrderPlaceActivity.this, MainCategory.class);
+                        intent.putExtra("name",display_name);
+                        intent.putExtra("email",sharedPref.getString("email","harshil.laheri@gmail.com"));
+                        intent.putExtra("img_url",sharedPref.getString("img_url",""));
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                        finish();
                         //Intent i = new Intent(signup.this,PostSignupCust.class);
                         //i.putExtra("cid",cid);
                         //startActivity(i);

@@ -24,6 +24,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -65,7 +66,7 @@ public class signup extends AppCompatActivity {
     RadioGroup rg;
     RadioButton rb_cust, rb_sell;
     Button _signupButton;
-
+    private RequestQueue mQueue;
     TextView _loginLink;
 
 
@@ -75,7 +76,8 @@ public class signup extends AppCompatActivity {
         setContentView(R.layout.activity_signup);
         //ButterKnife.inject(this);
 
-
+        mQueue = CustomVolleyRequestQueue.getInstance(this.getApplicationContext())
+                .getRequestQueue();
         setup();
 
 
@@ -172,7 +174,7 @@ public class signup extends AppCompatActivity {
         }
 
 
-        RequestQueue rq = Volley.newRequestQueue(this);
+
         JsonObjectRequest req = new JsonObjectRequest(url, insert,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -200,6 +202,7 @@ public class signup extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(),
                                         "Account cannot be created! Try again",
                                         Toast.LENGTH_LONG).show();
+                                Log.i("Response:",response.toString());
                             }
                             // Log.d("VolleyTest", person.toString());
 
@@ -231,7 +234,12 @@ public class signup extends AppCompatActivity {
             }
         });
 
-        rq.add(req);
+        req.setRetryPolicy(new DefaultRetryPolicy(
+                5000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        mQueue.add(req);
     }
 
 
@@ -287,8 +295,6 @@ public class signup extends AppCompatActivity {
             i.putExtra("sid", sid);
             startActivity(i);
         }
-
-        _signupButton.setEnabled(false);
 
 
     }

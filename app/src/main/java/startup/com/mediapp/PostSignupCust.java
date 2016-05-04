@@ -4,7 +4,6 @@ package startup.com.mediapp;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -15,17 +14,13 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -35,7 +30,6 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPReply;
 import org.json.JSONException;
@@ -129,7 +123,7 @@ public class PostSignupCust extends AppCompatActivity implements View.OnClickLis
 
         pDialog = new ProgressDialog(PostSignupCust.this);
         image_name=cid+".png";
-        image_url="http://mediapp.netai.net/Images/"+image_name;
+        image_url="http://mediapp.netai.net/Images/profile_pics/"+image_name;
 
         new FTP().execute(image_name, is);
         if(is!=null){

@@ -45,9 +45,11 @@ public class OrderFragment extends Fragment {
     private String mParam2;
     private RequestQueue mQueue;
     List<OrderItemInfo> result = new ArrayList<OrderItemInfo>();
+    List<OrderItemInfo> mainlist = new ArrayList<OrderItemInfo>();
     private final String fetch_url = "http://mediapp.netai.net/order_details.php";
 
     private OnFragmentInteractionListener2 mListener;
+    Order_Item_Adapter ca;
 
     public OrderFragment() {
         // Required empty public constructor
@@ -91,12 +93,13 @@ public class OrderFragment extends Fragment {
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recList.setLayoutManager(llm);
-        recList.hasFixedSize();
+
+        ca = new Order_Item_Adapter(getActivity(),mainlist);
+        recList.setAdapter(ca);
 
         fetch_items();
 
-        Order_Item_Adapter ca = new Order_Item_Adapter(getActivity(),result);
-        recList.setAdapter(ca);
+
         return v;
     }
 
@@ -173,6 +176,8 @@ public class OrderFragment extends Fragment {
 
 
                     }
+                    mainlist = result;
+                    ca.animateTo(mainlist);
 
 
                 } catch (JSONException e) {

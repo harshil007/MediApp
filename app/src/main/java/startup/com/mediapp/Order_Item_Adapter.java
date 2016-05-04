@@ -31,11 +31,11 @@ public class Order_Item_Adapter extends RecyclerView.Adapter<Order_Item_Adapter.
 
     public void onBindViewHolder(final ContactViewHolder contactViewHolder, int i) {
         OrderItemInfo ci = contactList.get(i);
-        contactViewHolder.oid.setText(ci.oid);
-        contactViewHolder.amount.setText(ci.amount);
-        contactViewHolder.status.setText(ci.status);
-        contactViewHolder.date.setText(ci.date);
-        contactViewHolder.arrival_time.setText(ci.arrival_time);
+        contactViewHolder.oid.setText("ORDER ID : " + ci.oid);
+        contactViewHolder.amount.setText("AMOUNT : " + ci.amount);
+        contactViewHolder.status.setText("STATUS : " +ci.status);
+        contactViewHolder.date.setText("DATE : " + ci.date);
+        contactViewHolder.arrival_time.setText("ARRIVAL TIME : " + ci.arrival_time);
     }
 
     public ContactViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
@@ -71,6 +71,58 @@ public class Order_Item_Adapter extends RecyclerView.Adapter<Order_Item_Adapter.
 
         }
 
+    }
+
+
+    public void animateTo(List<OrderItemInfo> models) {
+        applyAndAnimateRemovals(models);
+        applyAndAnimateAdditions(models);
+        applyAndAnimateMovedItems(models);
+    }
+
+    private void applyAndAnimateRemovals(List<OrderItemInfo> newModels) {
+        for (int i = contactList.size() - 1; i >= 0; i--) {
+            final OrderItemInfo model = contactList.get(i);
+            if (!newModels.contains(model)) {
+                removeItem(i);
+            }
+        }
+    }
+
+    public void applyAndAnimateAdditions(List<OrderItemInfo> newModels) {
+        for (int i = 0, count = newModels.size(); i < count; i++) {
+            final OrderItemInfo model = newModels.get(i);
+            if (!contactList.contains(model)) {
+                addItem(i, model);
+            }
+        }
+    }
+
+    private void applyAndAnimateMovedItems(List<OrderItemInfo> newModels) {
+        for (int toPosition = newModels.size() - 1; toPosition >= 0; toPosition--) {
+            final OrderItemInfo model = newModels.get(toPosition);
+            final int fromPosition = contactList.indexOf(model);
+            if (fromPosition >= 0 && fromPosition != toPosition) {
+                moveItem(fromPosition, toPosition);
+            }
+        }
+    }
+
+    public OrderItemInfo removeItem(int position) {
+        final OrderItemInfo model = contactList.remove(position);
+        notifyItemRemoved(position);
+        return model;
+    }
+
+    public void addItem(int position, OrderItemInfo model) {
+        contactList.add(position, model);
+        notifyItemInserted(position);
+    }
+
+    public void moveItem(int fromPosition, int toPosition) {
+        final OrderItemInfo model = contactList.remove(fromPosition);
+        contactList.add(toPosition, model);
+        notifyItemMoved(fromPosition, toPosition);
     }
 
 }

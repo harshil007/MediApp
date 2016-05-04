@@ -1,6 +1,8 @@
 package startup.com.mediapp;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
@@ -20,11 +22,23 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Harshil on 12/04/2016.
@@ -43,6 +57,16 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
     float cart_price;
     Spinner sp_day,sp_time;
     String del_day,del_time;
+    String SELLER_URL="http://mediapp.netai.net/select_seller.php";
+    private RequestQueue mQueue;
+    SharedPreferences prefs;
+    String pincode,city;
+    String[] s_id,s_name;
+    String sel_seller_id,sel_seller_name;
+
+    ProgressDialog progressDialog;
+
+    protected static final int SUB_ACTIVITY_REQUEST_CODE = 100;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,6 +78,16 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         rv = (RecyclerView) findViewById(R.id.rc_cart_items);
         Bundle bundle = getIntent().getExtras();
+
+
+
+        prefs = getSharedPreferences(getString(R.string.preference_file_key),0);
+        pincode = prefs.getString("pincode","382424");
+        city = prefs.getString("city","Ahmedabad");
+
+        mQueue = CustomVolleyRequestQueue.getInstance(this.getApplicationContext())
+                .getRequestQueue();
+
         items_list = new ArrayList<>();
         items_list = bundle.getParcelableArrayList("orders_array");
         cart_price = bundle.getFloat("price");
@@ -118,6 +152,14 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
         adapter = new CartRecycleAdapter(this,items_list,cart_price,cart_quant);
 
 
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Please wait..");
+        progressDialog.show();
+
+        selectSeller();
+
 
         rv.setItemAnimator(new DefaultItemAnimator());
         rv.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
@@ -162,6 +204,70 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+
+    public void selectSeller(){
+
+        JSONObject son = new JSONObject();
+        try {
+            son.put("pincode",pincode);
+            son.put("city",city);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonArrayRequest jreq = new JsonArrayRequest(SELLER_URL, son, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                try {
+                    JSONObject flag = response.getJSONObject(0);
+                    int success = flag.getInt("success");
+                    if(success==1){
+                        JSONArray s_id_array = response.getJSONArray(1);
+                        JSONArray s_name_array = response.getJSONArray(2);
+                        s_id = new String[s_id_array.length()];
+                        s_name = new String[s_id_array.length()];
+                        for(int i=0;i<s_id_array.length();i++){
+                            s_id[i] = s_id_array.getString(i);
+                            s_name[i] = s_name_array.getString(i);
+
+                        }
+
+                        Random r = new Random();
+                        int x = r.nextInt(s_id_array.length());
+                        sel_seller_name = s_name[x];
+                        sel_seller_id = s_id[x];
+                        tv_seller_name.setText(sel_seller_name);
+
+                    }
+                    else{
+                        sel_seller_name="Acha Medical Store";
+                        sel_seller_id="s_951";
+                        tv_seller_name.setText(sel_seller_name);
+                        Toast.makeText(CartActivity.this,"No sellers found in vicinity",Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                progressDialog.dismiss();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                finish();
+                progressDialog.dismiss();
+                error.printStackTrace();
+            }
+        });
+
+        jreq.setRetryPolicy(new DefaultRetryPolicy(
+                5000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        mQueue.add(jreq);
+
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -174,7 +280,8 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                 ll_delivery.setVisibility(View.VISIBLE);
                 break;
             case R.id.iv_edit_seller:
-
+                Intent i = new Intent(CartActivity.this,SellerSelectActivity.class);
+                startActivityForResult(i,SUB_ACTIVITY_REQUEST_CODE);
                 break;
             case R.id.b_add_more:
                 finish();
@@ -186,7 +293,7 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                 Bundle bundle = new Bundle();
                 bundle.putParcelableArrayList("final_order",(ArrayList)final_order);
                 bundle.putFloat("price",cart_price);
-                bundle.putString("seller_id","s_951");
+                bundle.putString("seller_id",sel_seller_id);
                 bundle.putString("arrival_time",del_day+", "+del_time);
                 intent.putExtras(bundle);
                 startActivity(intent);
@@ -196,8 +303,20 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==SUB_ACTIVITY_REQUEST_CODE){
+            String id = data.getExtras().getString("id");
+            String name = data.getExtras().getString("name");
+            sel_seller_name = name;
+            sel_seller_id = id;
+            tv_seller_name.setText(sel_seller_name);
 
-    public void set_text(String price,String quantity){
+        }
+    }
+
+    public void set_text(String price, String quantity){
         cart_quant=Integer.parseInt(quantity);
         cart_price=Float.parseFloat(price);
         tv_cart_price.setText("₹ "+price);

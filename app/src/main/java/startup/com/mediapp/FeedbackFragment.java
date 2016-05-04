@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,15 +78,6 @@ public class FeedbackFragment extends Fragment {
         View v =  inflater.inflate(R.layout.fragment_feedback, container, false);
 
         comments =(EditText) v.findViewById(R.id.commentet);
-        submit=(Button) v.findViewById(R.id.submit);
-        submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Toast.makeText(getActivity(),"Thanks for the feedback",Toast.LENGTH_SHORT).show();
-            }
-        });
-
         radioGroup = (RadioGroup) v.findViewById(R.id.rate);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -117,6 +109,28 @@ public class FeedbackFragment extends Fragment {
                 }
             }
         });
+        submit=(Button) v.findViewById(R.id.submit);
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (TextUtils.isEmpty(comments.getText())) {
+                    comments.setError("Please enter comments");
+                    return;
+                }
+
+                if (radioGroup.getCheckedRadioButtonId() <= 0) {//Grp is your radio group object
+                    Toast.makeText(getActivity().getApplicationContext(), "Please select anyone rating ", Toast.LENGTH_SHORT);
+                    return;
+                }
+
+                comments.setText("");
+                radioGroup.clearCheck();
+                Toast.makeText(getActivity(), "Thanks for the feedback", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        });
+
 
         return v;
 
@@ -178,6 +192,14 @@ public class FeedbackFragment extends Fragment {
                     rating="Poor";
                 break;
         }
+    }
+
+    public void submit(View v){
+
+        this.onCreate(null);
+        return;
+
+
     }
 
 

@@ -123,6 +123,7 @@ public class SubCategory extends AppCompatActivity implements SubCategoryAdapter
         JSONObject fetch = new JSONObject();
         try{
             fetch.put("category",category);
+            Log.d("Category",category);
 
         }catch (JSONException e){
             e.printStackTrace();
@@ -131,15 +132,21 @@ public class SubCategory extends AppCompatActivity implements SubCategoryAdapter
         JsonArrayRequest req = new JsonArrayRequest(Request.Method.POST, fetch_url, fetch, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-                len = response.length();
+
+                Log.d("Response : ",response.toString());
+
                 JSONArray id,name,img_url;
                 try {
 
-                    name = response.getJSONArray(1);
                     id = response.getJSONArray(0);
+                    name = response.getJSONArray(1);
                     img_url = response.getJSONArray(2);
+
+                    len = name.length();
+
                     title = new String[len];
                     category_img = new String[len];
+
                     Log.d("Success", response.toString());
 
                     for (int i=0; i < len; i++) {

@@ -50,7 +50,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/tv_seller_near_text"
-                    android:text="Sellers near You"
+                    android:text="Select a Seller"
                     android:textSize="17sp"
                     android:layout_margin="3dp"
                     />
@@ -64,6 +64,7 @@
                     android:textSize="15sp"
                     android:textColor="#000"
                     android:layout_margin="3dp"
+                    android:visibility="gone"
                     />
 
                 <ImageView
@@ -74,6 +75,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_margin="7dp"
                     android:tint="#616161"
+                    android:visibility="gone"
                     />
             </RelativeLayout>
 

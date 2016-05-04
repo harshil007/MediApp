@@ -12,8 +12,18 @@
             android:title="Notifications" />
         <item
             android:id="@+id/cart"
-            android:icon="@drawable/ic_shopping_cart_black_24dp"
-            android:title="Cart" />
+            android:icon="@drawable/ic_alarm_add_black_24dp"
+            android:title="Pill Reminder" />
+
+        <item
+            android:id="@+id/substitute"
+            android:icon="@drawable/ic_search_black_24dp"
+            android:title="Find Substitute" />
+
+        <item
+            android:id="@+id/healthtips"
+            android:icon="@drawable/ic_credit_card_black_24dp"
+            android:title="Health Tip Cards" />
 
         <item
             android:id="@+id/feedback"
@@ -27,24 +37,24 @@
     <item android:title="Your Account">
         <menu>
 
-            <group android:checkableBehavior="single">
-                <item
-                    android:id="@+id/orders"
-                    android:icon="@drawable/ic_receipt_black_24dp"
-                    android:title="Orders" />
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/orders"
+            android:icon="@drawable/ic_receipt_black_24dp"
+            android:title="Orders" />
 
-                <item
-                    android:id="@+id/profile"
-                    android:icon="@drawable/ic_face_black_24dp"
-                    android:title="Profile" />
+        <item
+            android:id="@+id/profile"
+            android:icon="@drawable/ic_face_black_24dp"
+            android:title="Profile" />
 
-                <item
-                    android:id="@+id/settings"
-                    android:icon="@drawable/ic_menu_manage"
-                    android:title="Settings" />
+        <item
+            android:id="@+id/settings"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Settings" />
 
 
-            </group>
+    </group>
         </menu>
 
     </item>

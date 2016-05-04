@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <LinearLayout
+        android:id="@+id/orderno"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#757575"
+        android:layout_marginTop="5dp"
+
+        >
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="45dp"
+            android:background="@color/primary_dark"
+            android:src="@drawable/ic_receipt_white_24dp"
+            android:padding="3dp"
+            />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#fff"
+
+            />
+
+        <TextView
+            android:id="@+id/oid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ORDER No#"
+            android:layout_marginLeft="7dp"
+            android:layout_gravity="center_vertical"
+            android:textSize="17sp"
+            android:textColor="#fff"
+            android:layout_marginRight="10dp"
+            />
+
+    </LinearLayout>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fff"
+        android:layout_below="@+id/orderno"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/visible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Name"
+                    android:layout_margin="1dp"
+                    />
+
+                <TextView
+                    android:id="@+id/amount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Amount"
+                    android:layout_below="@+id/name"
+                    android:layout_margin="1dp"
+
+                    />
+
+                <TextView
+                    android:id="@+id/date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/amount"
+                    android:text="Date"
+                    android:layout_margin="1dp"
+                    />
+
+                <TextView
+                    android:id="@+id/arrival_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/date"
+                    android:text="Arrival Time"
+                    android:layout_margin="1dp"
+                    android:layout_marginBottom="20dp"
+                    />
+
+            </RelativeLayout>
+
+
+
+            <RelativeLayout
+                android:layout_marginTop="10dp"
+                android:id="@+id/hidden"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/visible"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tvlist"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Product List"
+                    android:layout_margin="5dp"/>
+
+                <LinearLayout
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/pitem"
+                    android:layout_below="@+id/tvlist"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:id="@+id/pname"
+                        android:layout_width="0dp"
+                        android:layout_weight="6"
+                        android:text="Product"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:id="@+id/quant"
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:text="quantity"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:id="@+id/prize"
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:text="prize"
+                        android:layout_height="wrap_content"/>
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/addr"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/pitem"
+                    android:text="Address"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    />
+
+                <TextView
+                    android:id="@+id/contact"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/addr"
+                    android:text="Contact"
+                    android:layout_margin="1dp"
+                    android:layout_marginBottom="20dp"
+                    />
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+
+
+</RelativeLayout>

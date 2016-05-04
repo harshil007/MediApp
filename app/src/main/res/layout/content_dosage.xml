@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:fillViewport="false">
+
+<RelativeLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="startup.com.mediapp.Dosage"
+    tools:showIn="@layout/activity_dosage">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        android:text="Set Duration:"
+        android:layout_marginBottom="5dp"
+        android:id="@+id/textView" />
+
+    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/duration"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"
+        android:orientation="vertical">
+
+        <RadioButton android:id="@+id/lifetime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lifetime"
+           />
+
+       <RadioButton
+           android:id="@+id/setduration"
+           android:text="Set Duration"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content" />
+
+
+    </RadioGroup>
+
+
+    <NumberPicker
+        android:id="@+id/number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:spinnerMode="dialog"
+        android:layout_below="@+id/duration" />
+
+    <Spinner
+        android:id="@+id/days"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:spinnerMode="dialog"
+        android:layout_alignBottom="@+id/number"
+        android:layout_toRightOf="@+id/number"
+        android:layout_toEndOf="@+id/number"
+        android:layout_marginBottom="51dp" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Set Quantity"
+        android:id="@+id/textView1"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="10dp"
+        android:layout_below="@+id/days"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <NumberPicker
+        android:id="@+id/quantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:spinnerMode="dialog"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView1"
+        />
+
+    <Spinner
+        android:id="@+id/item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:spinnerMode="dialog"
+        android:layout_alignBottom="@+id/quantity"
+        android:layout_toRightOf="@+id/quantity"
+       android:layout_toEndOf="@+id/quantity"
+        android:layout_marginBottom="53dp" />
+
+    <TextView
+        android:id="@+id/setfrequency"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/item"
+        android:layout_margin="10dp"
+        android:text="Set Frequency \n \n Every"
+        android:layout_marginTop="50dp"/>
+
+    <NumberPicker
+        android:id="@+id/freq"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:spinnerMode="dialog"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/setfrequency"
+        />
+
+    <Spinner
+        android:id="@+id/frequency"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:spinnerMode="dialog"
+        android:layout_alignBottom="@+id/freq"
+        android:layout_toRightOf="@+id/freq"
+        android:layout_toEndOf="@+id/freq"
+        android:layout_marginBottom="51dp" />
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start Date"
+        android:layout_margin="10dp"
+        android:layout_below="@+id/frequency"
+        android:onClick="showDatePickerDialog"/>
+
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Done"
+        android:id="@+id/done"
+        android:layout_below="@id/date"
+        android:layout_centerHorizontal="true"
+        android:onClick="done"/>
+
+
+
+
+</RelativeLayout>
+</ScrollView>

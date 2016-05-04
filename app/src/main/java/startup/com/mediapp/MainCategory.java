@@ -20,8 +20,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -38,7 +36,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -46,7 +44,9 @@ import org.json.JSONException;
 import java.util.ArrayList;
 import java.util.List;
 public class MainCategory extends AppCompatActivity implements MainCategoryAdapter.ClickListener,NavigationView.OnNavigationItemSelectedListener,
-        FeedbackFragment.OnFragmentInteractionListener,OrderFragment.OnFragmentInteractionListener2 {
+        FeedbackFragment.OnFragmentInteractionListener,OrderFragment.OnFragmentInteractionListener2, HomeFragment.OnFragmentInteractionListener,
+        NotificationFragment.OnFragmentInteractionListener,Substitutes.OnFragmentInteractionListener,HealthTipsFragment.OnFragmentInteractionListener,
+        SettingsFragment.OnFragmentInteractionListener,ProfileFragment.OnFragmentInteractionListener{
 
     List<MainCategoryInfo> result = new ArrayList<MainCategoryInfo>();
     List<MainCategoryInfo> mainlist = new ArrayList<MainCategoryInfo>();
@@ -81,12 +81,13 @@ public class MainCategory extends AppCompatActivity implements MainCategoryAdapt
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.getMenu().getItem(0).setChecked(true);
         View headerLayout = navigationView.getHeaderView(0);
 
         pp = (ImageView) headerLayout.findViewById(R.id.profilepic);
         name = (TextView) headerLayout.findViewById(R.id.nam);
         email = (TextView) headerLayout.findViewById(R.id.emai);
-
+/*
         ll_refresh = (LinearLayout) findViewById(R.id.ll_refresh_category);
 
 
@@ -96,20 +97,23 @@ public class MainCategory extends AppCompatActivity implements MainCategoryAdapt
                 fetch_items();
             }
         });
-
+*/
         name.setText(getIntent().getExtras().getString("name"));
         email.setText(getIntent().getExtras().getString("email"));
         ppurl = getIntent().getExtras().getString("img_url");
 
-      Glide.with(getApplicationContext())
+        Log.d("ImageUrl",ppurl);
+
+      Picasso.with(getApplicationContext())
                 .load(ppurl)
-                .fitCenter()
-                .placeholder(R.drawable.load)
-                .thumbnail( 0.1f )
-                .crossFade()
+                .placeholder(R.drawable.category_5)
                 .into(pp);
 
-        RecyclerView recList = (RecyclerView) findViewById(R.id.cardList);
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+        }
+
+       /* RecyclerView recList = (RecyclerView) findViewById(R.id.cardList);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recList.setLayoutManager(llm);
@@ -117,7 +121,7 @@ public class MainCategory extends AppCompatActivity implements MainCategoryAdapt
 
         main_adapter = new MainCategoryAdapter(this,mainlist);
         recList.setAdapter(main_adapter);
-        main_adapter.setClickListener(this);
+        main_adapter.setClickListener(this); */
 
 
         category_img = new String[7];
@@ -133,7 +137,7 @@ public class MainCategory extends AppCompatActivity implements MainCategoryAdapt
                 .getRequestQueue();
 
 
-        fetch_items();
+      // fetch_items();
 
     }
 
@@ -211,7 +215,7 @@ public class MainCategory extends AppCompatActivity implements MainCategoryAdapt
             @Override
             public void onResponse(JSONArray response) {
 
-                len = response.length();
+                len = 7;
                 JSONArray id,name,subcategory,description,img_url;
                 try {
                     id = response.getJSONArray(0);
@@ -321,10 +325,22 @@ public class MainCategory extends AppCompatActivity implements MainCategoryAdapt
 
         if (id == R.id.home) {
 
+            Fragment fragment = new HomeFragment();
+            Bundle args = new Bundle();
+            //args.putCharSequenceArrayList(HomeFragment.mainlist, mainlist);
+            fragment.setArguments(args);
+
+            // Insert the fragment by replacing any existing fragment
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, fragment)
+                    .commit();
+
+
 
         } else if (id == R.id.notifications) {
 
-            Fragment fragment = new NotificationFragment();
+           Fragment fragment = new NotificationFragment();
             Bundle args = new Bundle();
             //args.putInt(NotificationFragment.ARG_PLANET_NUMBER, position);
             fragment.setArguments(args);
@@ -338,7 +354,8 @@ public class MainCategory extends AppCompatActivity implements MainCategoryAdapt
 
         } else if (id == R.id.cart) {
 
-            //Show cart items here
+            Intent i = new Intent(this,PillChooser.class);
+            startActivity(i);
 
         } else if (id == R.id.orders) {
 
@@ -379,7 +396,36 @@ public class MainCategory extends AppCompatActivity implements MainCategoryAdapt
 
         } else if (id == R.id.profile) {
 
+            Fragment fragment = new ProfileFragment();
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragment_container, fragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+
         } else if (id == R.id.settings) {
+
+            Fragment fragment = new SettingsFragment();
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragment_container, fragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+
+
+        }else if (id == R.id.substitute){
+
+            Fragment fragment = new Substitutes();
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragment_container, fragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+
+        }else if (id == R.id.healthtips){
+
+            Fragment fragment = new HealthTipsFragment();
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragment_container, fragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
 
         }
 
