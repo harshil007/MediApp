@@ -256,7 +256,7 @@ public class OrderPlaceActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(),
                                 "Order Placed!",
                                 Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(OrderPlaceActivity.this, MainCategory.class);
+                        Intent intent = new Intent(getApplicationContext(), MainCategory.class);
                         intent.putExtra("name",display_name);
                         intent.putExtra("email",sharedPref.getString("email","harshil.laheri@gmail.com"));
                         intent.putExtra("img_url",sharedPref.getString("img_url",""));

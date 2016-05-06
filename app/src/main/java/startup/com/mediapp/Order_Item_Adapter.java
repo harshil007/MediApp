@@ -16,7 +16,7 @@ public class Order_Item_Adapter extends RecyclerView.Adapter<Order_Item_Adapter.
 
     private List<OrderItemInfo> contactList;
     Context context;
-
+    ClickListener clickListener;
 
     public Order_Item_Adapter(Context context, List<OrderItemInfo> contactList) {
         this.contactList = contactList;
@@ -47,9 +47,12 @@ public class Order_Item_Adapter extends RecyclerView.Adapter<Order_Item_Adapter.
     }
 
 
+    public void setClickListener(ClickListener clickListener) {
+        this.clickListener = clickListener;
+    }
 
 
-    public class ContactViewHolder extends RecyclerView.ViewHolder {
+    public class ContactViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
 
         protected TextView oid;
@@ -62,6 +65,7 @@ public class Order_Item_Adapter extends RecyclerView.Adapter<Order_Item_Adapter.
 
         public ContactViewHolder(View v) {
             super(v);
+            v.setOnClickListener(this);
             oid = (TextView) v.findViewById(R.id.oid);
             amount = (TextView) v.findViewById(R.id.amount);
             status = (TextView) v.findViewById(R.id.status);
@@ -71,6 +75,20 @@ public class Order_Item_Adapter extends RecyclerView.Adapter<Order_Item_Adapter.
 
         }
 
+        @Override
+        public void onClick(View v) {
+
+
+            if (clickListener != null) {
+                clickListener.itemClicked(v, getPosition());
+            }
+        }
+
+    }
+
+    public interface ClickListener {
+
+        void itemClicked(View view, int position);
     }
 
 
@@ -124,6 +142,7 @@ public class Order_Item_Adapter extends RecyclerView.Adapter<Order_Item_Adapter.
         contactList.add(toPosition, model);
         notifyItemMoved(fromPosition, toPosition);
     }
+
 
 }
 

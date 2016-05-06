@@ -139,7 +139,11 @@ public class Login {
                                     editor.putString("id",id);
                                     editor.putString("name",name);
                                     editor.putString("img_url",img_url);
-
+                                    editor.apply();
+                                    Log.i("SELLER:",""+id+" "+name);
+                                    Intent i = new Intent(c.getApplicationContext(),SellerOrdersActivity.class);
+                                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    c.startActivity(i);
 
                                 }else if(u.equals("Customer")) {
                                     editor.putString(c.getString(R.string.User), "Customer");
@@ -165,12 +169,12 @@ public class Login {
                                     editor.putString("state",state);
                                     editor.putString("pincode",pincode);
                                     editor.putString("mob_no",mob_no);
-                                    ;
-                                    editor.commit();
+
+                                    editor.apply();
 
                                     Toast.makeText(c, "Success", Toast.LENGTH_LONG).show();
 
-                                    Intent i = new Intent(c,MainCategory.class);
+                                    Intent i = new Intent(c.getApplicationContext(),MainCategory.class);
                                     i.putExtra("name", name);
                                     i.putExtra("img_url",img_url);
                                     i.putExtra("email", e);

@@ -280,7 +280,7 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                 ll_delivery.setVisibility(View.VISIBLE);
                 break;
             case R.id.iv_edit_seller:
-                Intent i = new Intent(CartActivity.this,SellerSelectActivity.class);
+                Intent i = new Intent(getApplicationContext(),SellerSelectActivity.class);
                 startActivityForResult(i,SUB_ACTIVITY_REQUEST_CODE);
                 break;
             case R.id.b_add_more:
@@ -289,7 +289,7 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.b_checkout:
                 final_order = adapter.get_order();
 
-                Intent intent = new Intent(CartActivity.this,OrderPlaceActivity.class);
+                Intent intent = new Intent(getApplicationContext(),OrderPlaceActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putParcelableArrayList("final_order",(ArrayList)final_order);
                 bundle.putFloat("price",cart_price);

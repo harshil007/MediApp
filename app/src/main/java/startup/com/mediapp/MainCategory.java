@@ -299,7 +299,7 @@ public class MainCategory extends AppCompatActivity implements MainCategoryAdapt
         String category = tv_category.getText().toString();
 
         if(subcategory.equals("no")) {
-            Intent i = new Intent(MainCategory.this, ItemListActivity.class);
+            Intent i = new Intent(getApplicationContext(), ItemListActivity.class);
             i.putExtra("category", category);
             i.putExtra("sub_category", "nope");
             startActivity(i);
@@ -308,7 +308,7 @@ public class MainCategory extends AppCompatActivity implements MainCategoryAdapt
 
         else{
 
-            Intent i = new Intent(MainCategory.this, SubCategory.class);
+            Intent i = new Intent(getApplicationContext(), SubCategory.class);
             i.putExtra("category", category);
             startActivity(i);
 

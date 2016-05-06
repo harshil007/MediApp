@@ -26,7 +26,7 @@
                 android:layout_centerHorizontal="true"
                 android:src="@drawable/category_5"
                 android:layout_marginTop="10dp"
-                android:id="@+id/profilepic" />
+                android:id="@+id/iv_profilepic" />
 
 
 
@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:text="Kunal Pursnani"
         android:layout_margin="10dp"
-        android:layout_below="@+id/profilepic"
+        android:layout_below="@+id/iv_profilepic"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView

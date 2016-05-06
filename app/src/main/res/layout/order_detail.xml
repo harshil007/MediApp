@@ -1,18 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/login_bck"
+    android:id="@+id/rl_order_detail">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_od"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:popupTheme="@style/AppTheme.PopupOverlay" />
 
 
     <LinearLayout
+        android:layout_below="@+id/toolbar_od"
         android:id="@+id/orderno"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:background="#757575"
         android:layout_marginTop="5dp"
-
         >
 
         <ImageView
@@ -50,11 +59,15 @@
         android:background="#fff"
         android:layout_below="@+id/orderno"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+
+        >
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            >
 
             <RelativeLayout
                 android:id="@+id/visible"
@@ -67,17 +80,18 @@
                     android:layout_height="wrap_content"
                     android:text="Name"
                     android:layout_margin="1dp"
+                    android:textColor="#000"
                     />
 
-                <TextView
-                    android:id="@+id/amount"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Amount"
-                    android:layout_below="@+id/name"
-                    android:layout_margin="1dp"
-
-                    />
+                    <TextView
+                        android:id="@+id/amount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Amount"
+                        android:layout_below="@+id/name"
+                        android:layout_margin="1dp"
+                        android:textColor="#000"
+                        />
 
                 <TextView
                     android:id="@+id/date"
@@ -86,6 +100,7 @@
                     android:layout_below="@+id/amount"
                     android:text="Date"
                     android:layout_margin="1dp"
+                    android:textColor="#000"
                     />
 
                 <TextView
@@ -96,6 +111,7 @@
                     android:text="Arrival Time"
                     android:layout_margin="1dp"
                     android:layout_marginBottom="20dp"
+                    android:textColor="#000"
                     />
 
             </RelativeLayout>
@@ -115,7 +131,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Product List"
-                    android:layout_margin="5dp"/>
+                    android:layout_margin="5dp"
+                    android:textColor="#000"
+                    />
 
                 <LinearLayout
                     android:layout_marginTop="10dp"
@@ -131,19 +149,28 @@
                         android:layout_width="0dp"
                         android:layout_weight="6"
                         android:text="Product"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:textColor="#000"
+                        android:textStyle="italic"
+                        />
                     <TextView
                         android:id="@+id/quant"
                         android:layout_width="0dp"
                         android:layout_weight="2"
                         android:text="quantity"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:textColor="#000"
+                        android:textStyle="italic"
+                        />
                     <TextView
-                        android:id="@+id/prize"
+                        android:id="@+id/price"
                         android:layout_width="0dp"
                         android:layout_weight="2"
-                        android:text="prize"
-                        android:layout_height="wrap_content"/>
+                        android:text="price"
+                        android:layout_height="wrap_content"
+                        android:textColor="#000"
+                        android:textStyle="italic"
+                        />
 
 
                 </LinearLayout>
@@ -156,6 +183,7 @@
                     android:text="Address"
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
+                    android:textColor="#000"
                     />
 
                 <TextView
@@ -166,6 +194,7 @@
                     android:text="Contact"
                     android:layout_margin="1dp"
                     android:layout_marginBottom="20dp"
+                    android:textColor="#000"
                     />
             </RelativeLayout>
 

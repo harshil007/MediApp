@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -70,6 +72,7 @@ public class ProfileFragment extends Fragment {
         TextView email = (TextView)v.findViewById(R.id.emai);
         TextView mobile = (TextView)v.findViewById(R.id.mob);
         TextView address = (TextView)v.findViewById(R.id.add);
+        CircularImageView iv_profile = (CircularImageView) v.findViewById(R.id.iv_profilepic);
 
         SharedPreferences sharedPref = getActivity().getApplicationContext().
                 getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
@@ -77,6 +80,11 @@ public class ProfileFragment extends Fragment {
         name.setText(sharedPref.getString("name", defaultValue));
         mobile.setText("Mobile : "+sharedPref.getString("mob_no", defaultValue));
         email.setText("Email : "+sharedPref.getString(getString(R.string.Email), defaultValue));
+
+        Picasso.with(getActivity().getApplicationContext())
+                .load(sharedPref.getString("img_url","R.drawable.category_5"))
+                .placeholder(R.drawable.category_5)
+                .into(iv_profile);
 
         String addr = "Address : "+sharedPref.getString("addr_no", defaultValue)+"\n"+
                 sharedPref.getString("soc_name", defaultValue) +", "+

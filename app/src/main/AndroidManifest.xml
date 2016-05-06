@@ -100,6 +100,44 @@
         <activity android:name=".SellerSelectActivity"></activity>
         <activity android:name=".SellerOrdersActivity"></activity>
 
+
+        <activity
+            android:name=".Reminder"
+            android:label="Reminder" />
+
+        <service
+            android:name=".AlarmService"
+            android:enabled="true" />
+        <service
+            android:name=".stopAlarm"
+            android:enabled="true" />
+
+        <receiver android:name=".AlarmReceiver" />
+        <!--
+             ATTENTION: This was auto-generated to add Google Play services to your project for
+             App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
+        -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <activity
+            android:name=".PillChooser"
+            android:label="@string/title_activity_pill_chooser"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".Dosage"
+            android:label="@string/title_activity_dosage"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".SellerOrderActivity"
+            android:label="@string/title_activity_seller_order"
+            android:theme="@style/AppTheme"></activity>
+
+        <activity android:name=".SOrderDetailActivity"></activity>
+
+
+
     </application>
 
 </manifest>

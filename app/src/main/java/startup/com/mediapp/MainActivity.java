@@ -84,7 +84,7 @@ public class MainActivity extends Activity {
                 }
                 else{
                     // Start main activity
-                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                     MainActivity.this.startActivity(intent);
                     MainActivity.this.finish();
 

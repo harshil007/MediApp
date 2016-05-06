@@ -10,13 +10,25 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="startup.com.mediapp.SellerOrderActivity"
-    tools:showIn="@layout/app_bar_seller_order">
+    tools:showIn="@layout/app_bar_seller_order"
+    android:background="@color/login_bck"
+    >
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_123"
+        android:text="Orders:"
+        android:textColor="#fff"
+        android:textSize="20sp"
+        android:layout_margin="5dp"
+        />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/sellerorder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_123"
         />
 
 </RelativeLayout>
