@@ -99,6 +99,27 @@
 
         <activity android:name=".SellerSelectActivity"></activity>
         <activity android:name=".SellerOrdersActivity"></activity>
+        <activity android:name=".SellerOrderActivity"></activity>
+        <activity
+            android:name=".Reminder"
+            android:label="Reminder" />
+        <activity
+            android:name=".PillChooser"
+            android:label="Pill Chooser" />
+
+        <activity
+            android:name=".Dosage"
+            android:label="Dosage" />
+
+        <service
+            android:name=".AlarmService"
+            android:enabled="true" />
+        <service
+            android:name=".stopAlarm"
+            android:enabled="true" />
+
+        <receiver android:name=".AlarmReceiver" />
+
 
     </application>
 

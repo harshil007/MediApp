@@ -140,13 +140,19 @@ public class Login {
                                     editor.putString("name",name);
                                     editor.putString("img_url",img_url);
 
+                                    Intent i = new Intent(c,SellerOrdersActivity.class);
+                                    i.putExtra("name", name);
+                                    i.putExtra("img_url",img_url);
+                                    i.putExtra("email", e);
+                                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    c.startActivity(i);
+
 
                                 }else if(u.equals("Customer")) {
                                     editor.putString(c.getString(R.string.User), "Customer");
                                     id = response.getJSONArray(1).getString(0);
                                     name = response.getJSONArray(2).getString(0);
                                     img_url = response.getJSONArray(3).getString(0);
-
                                     String addr_no = response.getJSONArray(4).getString(0);
                                     String soc_name = response.getJSONArray(5).getString(0);
                                     String loc = response.getJSONArray(6).getString(0);
@@ -212,6 +218,9 @@ public class Login {
                 //   dialog.dismiss();
 
                 //pDialog.dismiss();
+                Intent i = new Intent(c,LoginActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                c.startActivity(i);
 
                 VolleyLog.e("Volley", "ErrorV: " + error.getMessage());
                 error.printStackTrace();
@@ -222,8 +231,8 @@ public class Login {
             }
         });
 
-        req.setRetryPolicy(new DefaultRetryPolicy(
-                5000,
+       req.setRetryPolicy(new DefaultRetryPolicy(
+                10000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
