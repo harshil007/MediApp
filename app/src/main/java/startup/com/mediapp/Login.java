@@ -1,5 +1,6 @@
 package startup.com.mediapp;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -33,6 +34,7 @@ public class Login {
     SharedPreferences sharedPref;
     String token;
     private static final String SENDER = "352901979399";
+    ProgressDialog pDialog;
 
 
     public  Login(String e, String p, String url, Context c, String u){
@@ -49,6 +51,13 @@ public class Login {
 
     public void registerGCM() {
         // [START get_token]
+
+        pDialog = new ProgressDialog(c);
+        pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        pDialog.setCancelable(false);
+        pDialog.setMessage("Signing in...");
+        pDialog.show();
+
 
         new AsyncTask<Void, Void, Void>(){
 
@@ -205,9 +214,12 @@ public class Login {
                                     "Error : " + e.getMessage(),
                                     Toast.LENGTH_LONG).show();
                             Log.d("VolleyTest", e.getMessage());
+                            Intent i = new Intent(c.getApplicationContext(),LoginActivity.class);
+                            c.startActivity(i);
                             return;
                         }
 
+                    pDialog.dismiss();
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -216,7 +228,7 @@ public class Login {
                 //   dialog.dismiss();
 
                 //pDialog.dismiss();
-
+                pDialog.dismiss();
                 VolleyLog.e("Volley", "ErrorV: " + error.getMessage());
                 error.printStackTrace();
                 Toast.makeText(c,

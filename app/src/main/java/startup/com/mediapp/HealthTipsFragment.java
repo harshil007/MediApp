@@ -32,6 +32,7 @@ public class HealthTipsFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     WebView healthtips;
+    ProgressDialog pDialog;
 
     private OnFragmentInteractionListener mListener;
 
@@ -74,13 +75,13 @@ public class HealthTipsFragment extends Fragment {
         healthtips.setWebViewClient(new MyWebViewClient());
         WebSettings webSettings = healthtips.getSettings();
         webSettings.setJavaScriptEnabled(true);
-        ProgressDialog pDialog = new ProgressDialog(getActivity());
+        pDialog = new ProgressDialog(getActivity());
         pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         pDialog.setCancelable(false);
         pDialog.setMessage("Fetching tips for you...");
         pDialog.show();
         healthtips.loadUrl("http://www.ecardsforhealth.com/");
-        pDialog.dismiss();
+
         return v;
     }
 
@@ -137,7 +138,11 @@ public class HealthTipsFragment extends Fragment {
 
         }
 
-
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            super.onPageFinished(view, url);
+            pDialog.dismiss();
+        }
     }
 
 }

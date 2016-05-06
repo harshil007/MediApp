@@ -55,8 +55,9 @@ public class NotificationService extends GcmListenerService {
                 user_id = msg.substring(0, index);
             order_id = msg.substring(msg.indexOf(" ") + 1, msg.length());
         }
-        volley_fetch();
+        //volley_fetch();
 
+        sendNotification();
 
 
     }
