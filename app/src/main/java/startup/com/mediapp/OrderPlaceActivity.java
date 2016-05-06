@@ -2,7 +2,6 @@ package startup.com.mediapp;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -21,10 +20,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -256,13 +253,13 @@ public class OrderPlaceActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(),
                                 "Order Placed!",
                                 Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(OrderPlaceActivity.this, MainCategory.class);
+                       /* Intent intent = new Intent(OrderPlaceActivity.this, MainCategory.class);
                         intent.putExtra("name",display_name);
                         intent.putExtra("email",sharedPref.getString("email","harshil.laheri@gmail.com"));
                         intent.putExtra("img_url",sharedPref.getString("img_url",""));
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
-                        finish();
+                        finish();*/
                         //Intent i = new Intent(signup.this,PostSignupCust.class);
                         //i.putExtra("cid",cid);
                         //startActivity(i);
